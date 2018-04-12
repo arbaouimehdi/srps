@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'sidebar',
+  selector: 'dashboard-sidebar',
   templateUrl: './sidebar.component.html'
 })
 

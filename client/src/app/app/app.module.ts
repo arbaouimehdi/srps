@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 // Modules
 import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from '../auth/auth.module';
+import { AdminModule } from '../admin/admin.module';
 
 // Routing
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
@@ -21,6 +22,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
   imports: [
     BrowserModule,
     AuthModule,
+    AdminModule,
     SharedModule,
     BrowserAnimationsModule,
     rootRouting,
