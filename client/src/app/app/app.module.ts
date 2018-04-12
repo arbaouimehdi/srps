@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 // Modules
-
+import { SharedModule } from '../shared/shared.module'
 
 // Routing
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
@@ -16,7 +16,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
