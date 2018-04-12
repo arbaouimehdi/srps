@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Component
 import { AppComponent } from './app.component';
 
 // Modules
-import { SharedModule } from '../shared/shared.module'
+import { SharedModule } from '../shared/shared.module';
+import { AuthModule } from '../auth/auth.module';
 
 // Routing
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
@@ -17,7 +20,10 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([])
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     SharedModule,
+    BrowserAnimationsModule,
+    rootRouting,
   ],
   providers: [],
   bootstrap: [AppComponent]
