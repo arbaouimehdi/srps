@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // Components
-import { HomeComponent } from './home/home.component';
+import { AdminComponent } from './admin.component';
 import { HeaderComponent, FooterComponent, SidebarComponent } from '../shared';
 
 // Modules
@@ -12,12 +12,13 @@ import { SharedModule } from '../shared/shared.module';
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'admin',
-    children: [
-      {
-        path: 'home',
-        component: HomeComponent
-      }
-    ]
+    component: AdminComponent
+    // children: [
+    //   {
+    //     path: 'home',
+    //     component: HomeComponent
+    //   }
+    // ]
   }
 ]);
 
@@ -28,7 +29,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     adminRouting
   ],
   declarations: [
-    HomeComponent,
+    AdminComponent,
     HeaderComponent,
     FooterComponent,
     SidebarComponent

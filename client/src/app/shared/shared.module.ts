@@ -11,7 +11,7 @@ import {
   MatCardModule,
   MatSidenav,
   MatSidenavModule,
-  MatCheckboxModule
+  MatCheckboxModule,
 } from '@angular/material';
 
 @NgModule({

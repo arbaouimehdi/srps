@@ -1,27 +1,16 @@
 <mat-toolbar color="primary">
-
-    <!-- # Brand Name -->
-    <div class="brand-name">
-      <a mat-button class="docs-button" routerLink="/" aria-label="Angular Material">
-        <img class="docs-angular-logo"
-              src="../../../../assets/img/angular-white-transparent.svg"
-              alt="angular">
-        <span>srps</span>
-      </a>
-    </div>
-
-    <!-- # This fills the remaining space of the current row -->
-    <span class="fill-remaining-space"></span>
-
-    <!-- # Menu -->
+  <button mat-icon-button (click)="start.open('mouse')">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="app-toolbar">
+    <h1>SRPS</h1>
     <div>
-      <a href="#" mat-icon-button>
-        <mat-icon aria-label="Full Screen">fullscreen</mat-icon>
-      </a>
-      <a href="#" mat-icon-button>
-          <mat-icon aria-label="Settings">settings</mat-icon>
-      </a>
-      <a href="#" mat-raised-button color="warn">Logout</a>
+      <button mat-icon-button (click)="toggleFullscreen()" title="Toggle fullscreen">
+        <mat-icon>fullscreen</mat-icon>
+      </button>
+      <button mat-button>Logout</button>
     </div>
+  </div>
+</mat-toolbar>
 
-  </mat-toolbar>
+<div #root="dir" dir="ltr" class="demo-content">dd</div>
