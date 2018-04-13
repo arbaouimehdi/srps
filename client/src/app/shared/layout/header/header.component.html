@@ -1,1 +1,27 @@
-<h1>Header</h1>
+<mat-toolbar color="primary">
+
+    <!-- # Brand Name -->
+    <div class="brand-name">
+      <a mat-button class="docs-button" routerLink="/" aria-label="Angular Material">
+        <img class="docs-angular-logo"
+              src="../../../../assets/img/angular-white-transparent.svg"
+              alt="angular">
+        <span>srps</span>
+      </a>
+    </div>
+
+    <!-- # This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+
+    <!-- # Menu -->
+    <div>
+      <a href="#" mat-icon-button>
+        <mat-icon aria-label="Full Screen">fullscreen</mat-icon>
+      </a>
+      <a href="#" mat-icon-button>
+          <mat-icon aria-label="Settings">settings</mat-icon>
+      </a>
+      <a href="#" mat-raised-button color="warn">Logout</a>
+    </div>
+
+  </mat-toolbar>

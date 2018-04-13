@@ -2,18 +2,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatInputModule, MatIconModule, MatToolbarModule, MatCard, MatCardModule, MatCardTitle } from '@angular/material';
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatCard,
+  MatCardModule,
+  MatSidenav,
+  MatSidenavModule,
+  MatCheckboxModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule,
-    MatCardModule,
-    RouterModule,
   ],
   declarations: [
   ],
@@ -22,10 +25,12 @@ import { MatButtonModule, MatInputModule, MatIconModule, MatToolbarModule, MatCa
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatCheckboxModule,
     MatInputModule,
     MatIconModule,
     MatCardModule,
-    MatCardTitle,
+    MatToolbarModule,
     RouterModule,
   ]
 })

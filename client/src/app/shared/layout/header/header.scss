@@ -1,0 +1,16 @@
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.brand-name {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  img {
+    height: 26px;
+    margin: 0 4px 3px 0;
+    vertical-align: middle;
+  }
+}
