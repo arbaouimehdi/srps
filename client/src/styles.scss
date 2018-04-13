@@ -15,7 +15,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
 body {
     font-family: $mat-font-family;
     font-weight: normal;
-    background: #e0e0e0;
+    &.auth {
+      background: #e0e0e0;
+    }
 }
 
 h1, h2, h3, h4 {

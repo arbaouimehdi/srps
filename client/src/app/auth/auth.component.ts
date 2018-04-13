@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -10,6 +11,12 @@ export class AuthComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
   hide = true;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  ngOnInit() {
+    this.document.body.classList.add('auth');
+  }
 
   @Input()
   set pending(isPending: boolean) {
@@ -25,9 +32,6 @@ export class AuthComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor() {}
-
-  ngOnInit() {}
 
   submit() {
 
