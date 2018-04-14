@@ -10,9 +10,6 @@
 // Pages
 @import './app/auth/auth-theme';
 
-// Shared
-@import './app/shared/layout/header/header-theme';
-
 @include mat-core();
 
 // Define the default theme (same as the example above).

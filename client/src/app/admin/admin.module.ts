@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 // Components
 import { AdminComponent } from './admin.component';
-import { HeaderComponent, FooterComponent, SidebarComponent } from '../shared';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
@@ -30,9 +29,6 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
   ],
   declarations: [
     AdminComponent,
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent
   ]
 })
 export class AdminModule { }
