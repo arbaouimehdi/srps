@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +9,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  mobileQuery: MediaQueryList;
+
+  private _mobileQueryListener: () => void;
+
+  constructor(
+    private _element: ElementRef,
+    private _overlayContainer: OverlayContainer,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher) {
+      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener);
+    }
 
   ngOnInit() {
+
+  }
+
+  toggleFullscreen() {
+    let elem = this._element.nativeElement.querySelector('.app-admin');
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullScreen) {
+      elem.webkitRequestFullScreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.msRequestFullScreen) {
+      elem.msRequestFullScreen();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
 }
