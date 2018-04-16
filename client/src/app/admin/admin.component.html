@@ -1,6 +1,8 @@
 <div class="app-admin">
 
-  <!-- # Header -->
+  <!-- ############################# -->
+  <!-- #           Header            -->
+  <!-- ############################# -->
   <mat-toolbar color="primary">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -16,7 +18,9 @@
     </div>
   </mat-toolbar>
 
-  <!-- # Sidebar -->
+  <!-- ############################# -->
+  <!-- #           Sidebar           -->
+  <!-- ############################# -->
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" fixedInViewport="true" [opened]="true">
       <mat-nav-list>
@@ -33,29 +37,29 @@
         <mat-accordion multi="true">
 
           <!-- Students -->
-          <mat-expansion-panel class="sidenav-links">
+          <mat-expansion-panel class="sidenav-links" expanded="{{ getCurrentUrl('student') }}">
             <mat-expansion-panel-header>Students</mat-expansion-panel-header>
-              <a mat-list-item href="#">
-                <mat-icon mat-list-icon>add</mat-icon>
-                Add Student
-              </a>
-              <a mat-list-item href="#">
-                <mat-icon mat-list-icon>settings</mat-icon>
-                Manage Students
-              </a>
+            <a mat-list-item routerLink="/admin/add-student" routerLinkActive="active">
+              <mat-icon mat-list-icon>add</mat-icon>
+              Add Student
+            </a>
+            <a mat-list-item routerLink="/admin/manage-students" routerLinkActive="active">
+              <mat-icon mat-list-icon>settings</mat-icon>
+              Manage Students
+            </a>
           </mat-expansion-panel>
 
           <!-- # Classes -->
-          <mat-expansion-panel class="sidenav-links">
+          <mat-expansion-panel class="sidenav-links" expanded="{{ getCurrentUrl('classe') }}">
             <mat-expansion-panel-header>Classes</mat-expansion-panel-header>
-              <a mat-list-item href="#">
-                <mat-icon mat-list-icon>add</mat-icon>
-                Create Class
-              </a>
-              <a mat-list-item href="#">
-                <mat-icon mat-list-icon>settings</mat-icon>
-                Manage Classes
-              </a>
+            <a mat-list-item routerLink="/admin/add-class" routerLinkActive="active">
+              <mat-icon mat-list-icon>add</mat-icon>
+              Create Class
+            </a>
+            <a mat-list-item routerLink="/admin/manage-classes" routerLinkActive="active">
+              <mat-icon mat-list-icon>settings</mat-icon>
+              Manage Classes
+            </a>
           </mat-expansion-panel>
 
           <!-- # Subjects -->
@@ -106,9 +110,11 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <!-- # Content -->
+    <!-- ############################# -->
+    <!-- #           Content           -->
+    <!-- ############################# -->
     <mat-sidenav-content>
-      content
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
 
   </mat-sidenav-container>

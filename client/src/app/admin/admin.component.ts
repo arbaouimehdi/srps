@@ -1,6 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -10,12 +11,14 @@ import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core'
 export class AdminComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
+  currentUrl: String;
 
   private _mobileQueryListener: () => void;
 
   constructor(
     private _element: ElementRef,
     private _overlayContainer: OverlayContainer,
+    private router:Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher) {
       this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -24,7 +27,7 @@ export class AdminComponent implements OnInit {
     }
 
   ngOnInit() {
-
+    this.currentUrl = this.router.url;
   }
 
   toggleFullscreen() {
@@ -38,6 +41,10 @@ export class AdminComponent implements OnInit {
     } else if (elem.msRequestFullScreen) {
       elem.msRequestFullScreen();
     }
+  }
+
+  getCurrentUrl(router) {
+    return this.currentUrl.includes(router);
   }
 
   ngOnDestroy(): void {

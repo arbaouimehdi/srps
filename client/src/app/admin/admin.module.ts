@@ -7,17 +7,33 @@ import { AdminComponent } from './admin.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
+import { AddStudentComponent } from './student/add-student.component';
+import { ManageStudentComponent } from './student/manage-student.component';
+import { AddClassComponent } from './class/add-class.component';
+import { ManageClassesComponent } from './class/manage-classes.component';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'admin',
-    component: AdminComponent
-    // children: [
-    //   {
-    //     path: 'home',
-    //     component: HomeComponent
-    //   }
-    // ]
+    component: AdminComponent,
+    children: [
+      {
+        path: 'add-student',
+        component: AddStudentComponent
+      },
+      {
+        path: 'manage-students',
+        component: ManageStudentComponent
+      },
+      {
+        path: 'add-class',
+        component: AddClassComponent
+      },
+      {
+        path: 'manage-classes',
+        component: ManageClassesComponent
+      }
+    ]
   }
 ]);
 
@@ -29,6 +45,10 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
   ],
   declarations: [
     AdminComponent,
+    AddStudentComponent,
+    ManageStudentComponent,
+    AddClassComponent,
+    ManageClassesComponent,
   ]
 })
 export class AdminModule { }
