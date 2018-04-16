@@ -37,7 +37,9 @@
         <mat-accordion multi="true">
 
           <!-- Students -->
-          <mat-expansion-panel class="sidenav-links" expanded="{{ getCurrentUrl('student') }}">
+          <mat-expansion-panel
+          class="sidenav-links"
+          expanded="{{ getCurrentUrl('student') }}" [ngClass]="getCurrentUrl('student') ? 'active-expansion' : ''">
             <mat-expansion-panel-header>Students</mat-expansion-panel-header>
             <a mat-list-item routerLink="/admin/add-student" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
@@ -50,7 +52,9 @@
           </mat-expansion-panel>
 
           <!-- # Classes -->
-          <mat-expansion-panel class="sidenav-links" expanded="{{ getCurrentUrl('classe') }}">
+          <mat-expansion-panel
+          class="sidenav-links"
+          expanded="{{ getCurrentUrl('class') }}" [ngClass]="getCurrentUrl('class') ? 'active-expansion' : ''">
             <mat-expansion-panel-header>Classes</mat-expansion-panel-header>
             <a mat-list-item routerLink="/admin/add-class" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
@@ -63,23 +67,17 @@
           </mat-expansion-panel>
 
           <!-- # Subjects -->
-          <mat-expansion-panel class="sidenav-links">
+          <mat-expansion-panel
+          class="sidenav-links"
+          expanded="{{ getCurrentUrl('subject') }}" [ngClass]="getCurrentUrl('subject') ? 'active-expansion' : ''">
             <mat-expansion-panel-header>Subjects</mat-expansion-panel-header>
-            <a mat-list-item href="#">
+            <a mat-list-item routerLink="/admin/add-subject" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
               Create Subject
             </a>
-            <a mat-list-item href="#">
+            <a mat-list-item routerLink="/admin/manage-subjects" routerLinkActive="active">
               <mat-icon mat-list-icon>settings</mat-icon>
               Manage Subjects
-            </a>
-            <a mat-list-item href="#">
-              <mat-icon mat-list-icon>add</mat-icon>
-              Add Combination
-            </a>
-            <a mat-list-item href="#">
-              <mat-icon mat-list-icon>settings</mat-icon>
-              Manage Combination
             </a>
           </mat-expansion-panel>
 
