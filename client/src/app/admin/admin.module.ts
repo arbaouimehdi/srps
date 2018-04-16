@@ -13,6 +13,8 @@ import { AddClassComponent } from './class/add-class.component';
 import { ManageClassesComponent } from './class/manage-classes.component';
 import { AddSubjectComponent } from './subject/add-subject.component';
 import { ManageSubjectsComponent } from './subject/manage-subjects.component';
+import { ManageResultsComponent } from './result/manage-results.component';
+import { AddResultComponent } from './result/add-result.component';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -42,6 +44,14 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       {
         path: 'manage-subjects',
         component: ManageSubjectsComponent
+      },
+      {
+        path: 'add-result',
+        component: AddResultComponent
+      },
+      {
+        path: 'manage-results',
+        component: ManageResultsComponent
       }
     ]
   }
@@ -61,6 +71,8 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     ManageClassesComponent,
     AddSubjectComponent,
     ManageSubjectsComponent,
+    ManageResultsComponent,
+    AddResultComponent,
   ]
 })
 export class AdminModule { }

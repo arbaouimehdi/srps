@@ -39,7 +39,7 @@
           <!-- Students -->
           <mat-expansion-panel
           class="sidenav-links"
-          expanded="{{ getCurrentUrl('student') }}" [ngClass]="getCurrentUrl('student') ? 'active-expansion' : ''">
+          expanded="{{ getCurrentUrl('student') }}">
             <mat-expansion-panel-header>Students</mat-expansion-panel-header>
             <a mat-list-item routerLink="/admin/add-student" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
@@ -54,7 +54,7 @@
           <!-- # Classes -->
           <mat-expansion-panel
           class="sidenav-links"
-          expanded="{{ getCurrentUrl('class') }}" [ngClass]="getCurrentUrl('class') ? 'active-expansion' : ''">
+          expanded="{{ getCurrentUrl('class') }}">
             <mat-expansion-panel-header>Classes</mat-expansion-panel-header>
             <a mat-list-item routerLink="/admin/add-class" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
@@ -69,7 +69,7 @@
           <!-- # Subjects -->
           <mat-expansion-panel
           class="sidenav-links"
-          expanded="{{ getCurrentUrl('subject') }}" [ngClass]="getCurrentUrl('subject') ? 'active-expansion' : ''">
+          expanded="{{ getCurrentUrl('subject') }}">
             <mat-expansion-panel-header>Subjects</mat-expansion-panel-header>
             <a mat-list-item routerLink="/admin/add-subject" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
@@ -82,15 +82,17 @@
           </mat-expansion-panel>
 
           <!-- # Result -->
-          <mat-expansion-panel class="sidenav-links">
+          <mat-expansion-panel
+          class="sidenav-links"
+          expanded="{{ getCurrentUrl('result') }}">
             <mat-expansion-panel-header>Result</mat-expansion-panel-header>
-            <a mat-list-item href="#">
+            <a mat-list-item routerLink="/admin/add-result" routerLinkActive="active">
               <mat-icon mat-list-icon>add</mat-icon>
               Add Result
             </a>
-            <a mat-list-item href="#">
+            <a mat-list-item routerLink="/admin/manage-results" routerLinkActive="active">
               <mat-icon mat-list-icon>settings</mat-icon>
-              Manage Result
+              Manage Results
             </a>
           </mat-expansion-panel>
 
