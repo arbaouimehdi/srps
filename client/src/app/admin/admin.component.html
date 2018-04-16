@@ -97,9 +97,11 @@
           </mat-expansion-panel>
 
           <!-- # Profile -->
-          <mat-expansion-panel class="sidenav-links">
+          <mat-expansion-panel
+          class="sidenav-links"
+          expanded="{{ getCurrentUrl('password') }}">
             <mat-expansion-panel-header>Profile</mat-expansion-panel-header>
-            <a mat-list-item href="#">
+            <a mat-list-item routerLink="/admin/profile-password" routerLinkActive="active">
               <mat-icon mat-list-icon>settings</mat-icon>
               Change Password
             </a>
