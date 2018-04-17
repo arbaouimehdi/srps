@@ -85,6 +85,15 @@
 
 }
 
+.home-link {
+  .mat-list-item {
+    width: 100%;
+  }
+  .active {
+    color: #3f50b5;
+  }
+}
+
 /**
 *
 * Content
