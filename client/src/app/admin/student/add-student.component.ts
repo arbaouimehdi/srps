@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddStudentComponent implements OnInit {
 
+  genders = [
+    'Male',
+    'Female',
+    'Other',
+  ];
+
+  classes = [
+    {name: 'One Section-A'},
+    {name: 'Two Section-A'},
+    {name: 'KTT Section-H'}
+  ];
+
   constructor() { }
 
   ngOnInit() {
