@@ -1,13 +1,29 @@
 <h1 class="heading-1">Manage Classes</h1>
 <mat-card>
 
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+  <div class="table-filter">
+
   </div>
 
-  <div class="example-container mat-elevation-z8">
+  <!-- # Filter and Add Button -->
+  <mat-grid-list class="table-filter" cols="2" rowHeight="90">
+
+    <mat-grid-tile class="table-search">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="table-add">
+      <a mat-raised-button color="primary" routerLink="/admin/add-class">
+        <mat-icon mat-list-icon>add</mat-icon>
+        New Class
+      </a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- # Table -->
+  <div class="mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource">
 
       <!-- Position Column -->
@@ -32,6 +48,12 @@
       <ng-container matColumnDef="section">
         <mat-header-cell *matHeaderCellDef> Section </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.section}} </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="creationDate">
+        <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creationDate}} </mat-cell>
       </ng-container>
 
       <!-- Actions Column -->
