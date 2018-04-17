@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Components
 import { AdminComponent } from './admin.component';
@@ -16,12 +18,17 @@ import { ManageSubjectsComponent } from './subject/manage-subjects.component';
 import { ManageResultsComponent } from './result/manage-results.component';
 import { AddResultComponent } from './result/add-result.component';
 import { PasswordComponent } from './profile/password.component';
+import { HomeComponent } from './home/home.component';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'admin',
     component: AdminComponent,
     children: [
+      {
+        path: 'home',
+        component: HomeComponent
+      },
       {
         path: 'add-student',
         component: AddStudentComponent
@@ -66,6 +73,8 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     CommonModule,
     SharedModule,
+    BrowserModule,
+    FlexLayoutModule,
     adminRouting
   ],
   declarations: [
@@ -79,6 +88,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     ManageResultsComponent,
     AddResultComponent,
     PasswordComponent,
+    HomeComponent,
   ]
 })
 export class AdminModule { }
