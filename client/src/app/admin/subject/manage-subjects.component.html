@@ -1,3 +1,65 @@
-<p>
-  manage-subjects works!
-</p>
+<h1 class="heading-1">Manage Subjects</h1>
+<mat-card>
+
+  <!-- # Filter and Add Button -->
+  <mat-grid-list class="table-filter" cols="2" rowHeight="90">
+
+    <mat-grid-tile class="table-search">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="table-add">
+      <a mat-raised-button color="primary" routerLink="/admin/add-subject">
+        <mat-icon mat-list-icon>add</mat-icon>
+        New Subject
+      </a>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+  <!-- # Table -->
+  <div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+
+      <!-- Subject Name -->
+      <ng-container matColumnDef="subjectName">
+        <mat-header-cell *matHeaderCellDef>Subject Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.subjectName}} </mat-cell>
+      </ng-container>
+
+      <!-- Subject Code -->
+      <ng-container matColumnDef="subjectCode">
+        <mat-header-cell *matHeaderCellDef>Subject Code</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.subjectCode}} </mat-cell>
+      </ng-container>
+
+      <!-- Creation Date -->
+      <ng-container matColumnDef="creationDate">
+        <mat-header-cell *matHeaderCellDef>Creation Date</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creationDate}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="_id">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary">Edit</button>
+          <button mat-raised-button color="warn">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+  </div>
+
+</mat-card>
