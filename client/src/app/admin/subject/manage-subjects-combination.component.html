@@ -1,0 +1,63 @@
+<h1 class="heading-1">Manage Subjects Combination</h1>
+<mat-card>
+
+  <!-- # Filter and Add Button -->
+  <mat-grid-list class="table-filter" cols="2" rowHeight="90">
+
+    <mat-grid-tile class="table-search">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="table-add">
+      <a mat-raised-button color="primary" routerLink="/admin/add-subject-combination">
+        <mat-icon mat-list-icon>add</mat-icon>
+        New Subject Combination
+      </a>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+    <!-- # Table -->
+    <div class="mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+        </ng-container>
+
+        <!-- Class and Section Name -->
+        <ng-container matColumnDef="classAndSection">
+          <mat-header-cell *matHeaderCellDef> Class &amp; Section Name</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.classAndSection}} </mat-cell>
+        </ng-container>
+
+        <!-- Subject -->
+        <ng-container matColumnDef="subject">
+          <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+        </ng-container>
+
+        <!-- Status -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="_id">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-slide-toggle [(ngModel)]="element.status"></mat-slide-toggle>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+</mat-card>
