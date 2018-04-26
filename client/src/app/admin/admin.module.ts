@@ -21,15 +21,19 @@ import { ManageResultsComponent } from './result/manage-results.component';
 import { AddResultComponent } from './result/add-result.component';
 import { PasswordComponent } from './profile/password.component';
 import { HomeComponent } from './home/home.component';
+import { AdminAuthResolver } from './admin-auth-resolver.service';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'admin',
     component: AdminComponent,
+    resolve: {
+      isAuthenticated: AdminAuthResolver
+    },
     children: [
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'add-student',
@@ -101,6 +105,9 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     HomeComponent,
     AddSubjectCombinationComponent,
     ManageSubjectsCombinationComponent,
+  ],
+  providers: [
+    AdminAuthResolver
   ]
 })
 export class AdminModule { }
