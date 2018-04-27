@@ -38,11 +38,12 @@ if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
   mongoose.connect('mongodb://localhost/srps');
-  //mongoose.set('debug', true);
+  mongoose.set('debug', true);
 }
 
 // Models
 require('./models/User');
+require('./models/Class');
 
 // Config
 require('./config/passport');
