@@ -42,7 +42,7 @@ router.put('/gender/:gender', function(req, res, next) {
   Gender.findOne({ _id: gender_id }, function (err, gender) {
     if (err) return handleError(err);
 
-    if (req.body.type !== 'undefined') {
+    if (typeof req.body.type !== 'undefined') {
       gender.type = req.body.type;
     }
 

@@ -46,15 +46,15 @@ router.put('/claass/:claass', function(req, res, next) {
   Claass.findOne({ _id: claass_id }, function (err, claass) {
     if (err) return handleError(err);
 
-    if (req.body.name_text !== 'undefined') {
+    if (typeof req.body.name_text !== 'undefined') {
       claass.name_text = req.body.name_text;
     }
 
-    if (req.body.name_numeric !== 'undefined') {
+    if (typeof req.body.name_numeric !== 'undefined') {
       claass.name_numeric = req.body.name_numeric;
     }
 
-    if (req.body.section !== 'undefined') {
+    if (typeof req.body.section !== 'undefined') {
       claass.section = req.body.section;
     }
 
