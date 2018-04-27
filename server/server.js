@@ -45,6 +45,7 @@ if(isProduction){
 require('./models/User');
 require('./models/Class');
 require('./models/Gender');
+require('./models/Student');
 
 // Config
 require('./config/passport');
