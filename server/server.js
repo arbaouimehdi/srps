@@ -46,6 +46,7 @@ require('./models/User');
 require('./models/Class');
 require('./models/Gender');
 require('./models/Student');
+require('./models/Subject');
 
 // Config
 require('./config/passport');
