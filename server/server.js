@@ -48,6 +48,7 @@ require('./models/Gender');
 require('./models/Student');
 require('./models/Subject');
 require('./models/Combination');
+require('./models/Result');
 
 // Config
 require('./config/passport');

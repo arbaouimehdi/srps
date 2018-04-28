@@ -6,6 +6,7 @@ router.use('/', require('./genders'));
 router.use('/', require('./students'));
 router.use('/', require('./subjects'));
 router.use('/', require('./combinations'));
+router.use('/', require('./results'));
 
 router.use(function(err, req, res, next){
   if(err.name === 'ValidationError'){
