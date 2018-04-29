@@ -3,18 +3,18 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/m
 import { ActivatedRoute, Router } from '@angular/router';
 
 // Components
-import { DeleteDialogComponent } from '../../shared/dialogs/delete/delete.dialog.component';
-import { EditSubjectComponent } from './edit-subject.component';
+import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+import { EditSubjectComponent } from '../edit/edit-subject.component';
 
 // Models
-import { Subject } from '../../shared/models/subject.model';
+import { Subject } from '../../../shared/models/subject.model';
 
 // Services
-import { SubjectsService } from '../../shared/services/subject.service';
+import { SubjectsService } from '../../../shared/services/subject.service';
 
 // Resolvers
-import { SubjectResolver } from './subjects-resolver.service';
-import { ApiService } from '../../shared';
+import { SubjectResolver } from '../subjects-resolver.service';
+import { ApiService } from '../../../shared';
 
 @Component({
   selector: 'app-manage-subjects',

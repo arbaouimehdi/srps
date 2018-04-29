@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 // Models
-import { Subject } from '../../shared/models/subject.model';
+import { Subject } from '../../../shared/models/subject.model';
 
 // Services
-import { SubjectsService } from '../../shared/services/subject.service';
+import { SubjectsService } from '../../../shared/services/subject.service';
 
 // Resolvers
-import { SubjectResolver } from './subjects-resolver.service';
+import { SubjectResolver } from '../subjects-resolver.service';
 
 @Component({
   selector: 'app-add-subject',

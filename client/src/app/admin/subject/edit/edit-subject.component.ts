@@ -3,8 +3,8 @@ import {Component, Inject} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Subject } from '../../shared/models/subject.model';
-import { ApiService } from '../../shared/services/api.service';
+import { Subject } from '../../../shared/models/subject.model';
+import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
   selector: 'app-edit-subject',
