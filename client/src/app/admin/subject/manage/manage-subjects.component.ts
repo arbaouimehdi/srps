@@ -33,6 +33,7 @@ export class ManageSubjectsComponent implements OnInit {
     '_id'
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   /**
    * Constructor
@@ -74,6 +75,7 @@ export class ManageSubjectsComponent implements OnInit {
    */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   /**

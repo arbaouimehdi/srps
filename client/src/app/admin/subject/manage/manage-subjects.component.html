@@ -21,12 +21,12 @@
 
   <!-- # Table -->
   <div class="mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
 
       <!-- Subject Name -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Subject Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
       </ng-container>
 
@@ -38,13 +38,13 @@
 
       <!-- Creation Date -->
       <ng-container matColumnDef="createdAt">
-        <mat-header-cell *matHeaderCellDef>Creation Date</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
       </ng-container>
 
       <!-- Update Date -->
       <ng-container matColumnDef="updatedAt">
-        <mat-header-cell *matHeaderCellDef>Update Date</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Update Date</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.updatedAt | date:'dd/MM/yyyy - HH:mm:ss'}} </mat-cell>
       </ng-container>
 
