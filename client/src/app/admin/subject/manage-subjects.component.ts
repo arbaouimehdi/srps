@@ -1,5 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { DeleteDialogComponent } from '../../shared/dialogs/delete/delete.dialog.component';
+
+// Models
+import { Subject } from '../../shared/models/subject.model';
+
+// Services
+import { SubjectsService } from '../../shared/services/subject.service';
+
+// Resolvers
+import { SubjectResolver } from './subjects-resolver.service';
 
 @Component({
   selector: 'app-manage-subjects',
@@ -8,43 +20,96 @@ import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 })
 export class ManageSubjectsComponent implements OnInit {
 
+  subject: Subject;
+  dataSource;
   displayedColumns = [
     'position',
-    'subjectName',
-    'subjectCode',
-    'creationDate',
+    'name',
+    'code',
+    'createdAt',
     '_id'
   ];
-
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  /**
+   * Constructor
+   *
+   *
+   * @param route
+   * @param subjectsService
+   * @param router
+   */
+  constructor(
+    private route: ActivatedRoute,
+    private subjectsService: SubjectsService,
+    private router: Router,
+    public dialog: MatDialog
+  ) { }
 
+  /**
+   *
+   *
+   * Init
+   *
+   *
+   */
   ngOnInit() {
+
+    // Retreive the prefetched Subjects
+    this.route.data.subscribe(
+      (data) => {
+        this.addPosition(data.subject.subjects);
+        this.dataSource = new MatTableDataSource<Element>(data.subject.subjects);
+      }
+    );
   }
 
+  /**
+   *
+   * Pagniator
+   *
+   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
+  /**
+   * Table Filter
+   *
+   *
+   * @param filterValue
+   */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
-}
+  /**
+   * Add Position Field
+   *
+   *
+   * @param subjects
+   */
+  addPosition(subjects) {
+    let counter = 0;
+    for (let subject of subjects) {
+      counter += 1;
+      subject['position'] = counter
+    }
+  }
 
-export interface Element {
-  position: number;
-  subjectName: string;
-  subjectCode: number;
-  creationDate: string;
-  _id: number;
-}
+  /**
+   * Delete an Item
+   *
+   *
+   * @param id
+   */
+  deleteItem(id) {
+    console.log(id);
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {id: id}
+    });
+  }
 
-const ELEMENT_DATA: Element[] = [
-  {position: 1, subjectName: 'English', subjectCode: 6578, creationDate:'2018-02-25 12:11:12', _id: 1},
-  {position: 2, subjectName: 'Math', subjectCode: 128, creationDate:'2018-02-25 12:11:12', _id: 2},
-];
+}

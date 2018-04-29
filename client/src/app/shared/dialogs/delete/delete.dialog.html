@@ -1,0 +1,9 @@
+<div class="container">
+  <h3 mat-dialog-title>Delete Confirmation</h3>
+  <div mat-dialog-content>Are your sure you want to delete this entry?</div>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="1" color="warn" (click)="confirmDelete()">Delete</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </div>
+</div>

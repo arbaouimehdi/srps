@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Components
 import { AdminComponent } from './admin.component';
+import { DeleteDialogComponent } from '../shared/dialogs/delete/delete.dialog.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
@@ -21,7 +22,11 @@ import { ManageResultsComponent } from './result/manage-results.component';
 import { AddResultComponent } from './result/add-result.component';
 import { PasswordComponent } from './profile/password.component';
 import { HomeComponent } from './home/home.component';
+
+// Resolvers
 import { AdminAuthResolver } from './admin-auth-resolver.service';
+import { SubjectResolver } from './subject/subjects-resolver.service';
+import { SubjectsService } from '../shared/services/subject.service';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -57,7 +62,10 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'manage-subjects',
-        component: ManageSubjectsComponent
+        component: ManageSubjectsComponent,
+        resolve: {
+          subject: SubjectResolver
+        }
       },
       {
         path: 'add-subject-combination',
@@ -105,9 +113,15 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     HomeComponent,
     AddSubjectCombinationComponent,
     ManageSubjectsCombinationComponent,
+    DeleteDialogComponent
+  ],
+  entryComponents: [
+    DeleteDialogComponent
   ],
   providers: [
-    AdminAuthResolver
+    AdminAuthResolver,
+    SubjectResolver,
+    SubjectsService
   ]
 })
 export class AdminModule { }
