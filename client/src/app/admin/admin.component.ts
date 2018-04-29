@@ -111,4 +111,14 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * Logout
+   *
+   */
+  logout() {
+    this.userService.purgeAuth();
+    this.router.navigateByUrl('/login');
+  }
+
 }
