@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// Components
 import { DeleteDialogComponent } from '../../shared/dialogs/delete/delete.dialog.component';
+import { EditSubjectComponent } from './edit-subject.component';
 
 // Models
 import { Subject } from '../../shared/models/subject.model';
@@ -12,6 +14,7 @@ import { SubjectsService } from '../../shared/services/subject.service';
 
 // Resolvers
 import { SubjectResolver } from './subjects-resolver.service';
+import { ApiService } from '../../shared';
 
 @Component({
   selector: 'app-manage-subjects',
@@ -23,10 +26,10 @@ export class ManageSubjectsComponent implements OnInit {
   subject: Subject;
   dataSource;
   displayedColumns = [
-    'position',
     'name',
     'code',
     'createdAt',
+    'updatedAt',
     '_id'
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,6 +45,7 @@ export class ManageSubjectsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private subjectsService: SubjectsService,
+    private apiService: ApiService,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -58,7 +62,6 @@ export class ManageSubjectsComponent implements OnInit {
     // Retreive the prefetched Subjects
     this.route.data.subscribe(
       (data) => {
-        this.addPosition(data.subject.subjects);
         this.dataSource = new MatTableDataSource<Element>(data.subject.subjects);
       }
     );
@@ -86,43 +89,6 @@ export class ManageSubjectsComponent implements OnInit {
   }
 
   /**
-   * Add Position Field
-   *
-   *
-   * @param subjects
-   */
-  addPosition(subjects) {
-    let counter = 0;
-    for (let subject of subjects) {
-      counter += 1;
-      subject['position'] = counter
-    }
-  }
-
-  /**
-   * Delete an Item
-   *
-   *
-   * @param id
-   * @param route
-   */
-  deleteItem(id, route) {
-
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id, route }
-    });
-
-    //
-    // After Closed Dialog
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == 1 ){
-        this.refreshTable(this.dataSource._data.value, id);
-      }
-    });
-
-  }
-
-  /**
    * Refresh Table
    *
    *
@@ -141,17 +107,60 @@ export class ManageSubjectsComponent implements OnInit {
 
     // Update the Pagniation
     this.dataSource.paginator = this.paginator;
+
   }
 
   /**
-   * Edit an Item
+   * Delete an Item
    *
    *
    * @param id
    * @param route
    */
-  updateItem(id, route) {
-    console.log(id);
+  deleteItem(id) {
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {route: 'subject', id }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
+  }
+
+  /**
+   * Update an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  updateItem(id, name, code) {
+    const dialogRef = this.dialog.open(EditSubjectComponent, {
+      data: { route: 'subject', id, name, code }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        let subjects = this.dataSource._data.value;
+        let index = subjects.findIndex(obj => obj._id === id);
+
+        let updated_subject = this.apiService.get(`/subject/${id}`).subscribe((data) => {
+          subjects[index] = data.subject;
+          console.log(subjects[index]);
+          this.dataSource = new MatTableDataSource<Element>(subjects);
+        });
+
+      }
+    });
+
   }
 
 }

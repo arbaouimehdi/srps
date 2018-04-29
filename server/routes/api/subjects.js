@@ -70,7 +70,6 @@ router.put('/subject/:subject', function(req, res, next) {
 // Delete a Subject
 router.delete('/subject/:subject', function(req, res, next) {
   let subject_id = req.params.subject;
-  console.log(subject_id);
   if (subject_id) {
     Subject.remove({ _id: subject_id}, (err, post) => {
       if (err) {
@@ -82,5 +81,17 @@ router.delete('/subject/:subject', function(req, res, next) {
     })
   }
 });
+
+// 
+// Get Selected Subject Details
+router.get('/subject/:subject', function(req, res, next) {
+
+  let subject_id = req.params.subject;
+
+  Subject.findOne({ _id: subject_id }, function (err, subject) {
+    return res.send({subject});
+  });
+
+})
 
 module.exports = router;

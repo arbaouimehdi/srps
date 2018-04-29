@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { AdminComponent } from './admin.component';
 import { DeleteDialogComponent } from '../shared/dialogs/delete/delete.dialog.component';
+import { EditSubjectComponent } from '../admin/subject/edit-subject.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
@@ -113,10 +114,12 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     HomeComponent,
     AddSubjectCombinationComponent,
     ManageSubjectsCombinationComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    EditSubjectComponent
   ],
   entryComponents: [
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    EditSubjectComponent
   ],
   providers: [
     AdminAuthResolver,
