@@ -1,5 +1,10 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { ApiService } from '../../../shared/services/api.service';
+import { SubjectsService } from '../../../shared/services/subject.service';
 
 @Component({
   selector: 'app-delete.dialog',
@@ -8,14 +13,18 @@ import {Component, Inject} from '@angular/core';
 })
 export class DeleteDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(
+    private http: HttpClient,
+    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    private apiService: ApiService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ){ }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  confirmDelete(): void {
-    console.log('xxx');
+  confirmDelete() {
+    this.apiService.delete(`/${this.data.route}/${this.data.id}`).subscribe();
   }
 }

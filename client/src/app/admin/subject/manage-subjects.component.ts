@@ -104,12 +104,35 @@ export class ManageSubjectsComponent implements OnInit {
    *
    *
    * @param id
+   * @param route
    */
-  deleteItem(id) {
-    console.log(id);
+  deleteItem(id, route) {
+
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id: id}
+      data: { id, route }
     });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+
+        let subjects = this.dataSource._data.value;
+
+        // Get the index of the data to remove
+        let index = subjects.findIndex(obj => obj._id === id);
+
+        // Remove the selected data
+        subjects.splice(index, 1);
+
+        // Update the List with the new data
+        this.dataSource = new MatTableDataSource<Element>(subjects);
+
+        // Update the Pagniation
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+
   }
 
 }
