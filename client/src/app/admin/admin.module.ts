@@ -11,19 +11,24 @@ import { DeleteDialogComponent } from '../shared/dialogs/delete/delete.dialog.co
 // Modules
 import { SharedModule } from '../shared/shared.module';
 
+// Students
 import { AddStudentComponent } from './student/add-student.component';
 import { ManageStudentComponent } from './student/manage-student.component';
 
-import { AddClassComponent } from './class/add-class.component';
-import { ManageClassesComponent } from './class/manage-classes.component';
+// Classes
+import { AddClassComponent } from './class/add/add-class.component';
+import { ManageClassesComponent } from './class/manage/manage-classes.component';
 
+// Subjects
 import { AddSubjectComponent } from './subject/add/add-subject.component';
 import { ManageSubjectsComponent } from './subject/manage/manage-subjects.component';
 import { EditSubjectComponent } from '../admin/subject/edit/edit-subject.component';
 
+// Subject Combinations
 import { AddSubjectCombinationComponent } from './subject/combination/add-subject-combination.component';
 import { ManageSubjectsCombinationComponent } from './subject/combination/manage-subjects-combination.component';
 
+// Results
 import { ManageResultsComponent } from './result/manage-results.component';
 import { AddResultComponent } from './result/add-result.component';
 
