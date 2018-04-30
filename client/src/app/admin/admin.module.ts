@@ -18,6 +18,7 @@ import { ManageStudentComponent } from './student/manage-student.component';
 // Classes
 import { AddClassComponent } from './class/add/add-class.component';
 import { ManageClassesComponent } from './class/manage/manage-classes.component';
+import { EditClassComponent } from './class/edit/edit-class.component';
 
 // Subjects
 import { AddSubjectComponent } from './subject/add/add-subject.component';
@@ -133,11 +134,13 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     AddSubjectCombinationComponent,
     ManageSubjectsCombinationComponent,
     DeleteDialogComponent,
-    EditSubjectComponent
+    EditSubjectComponent,
+    EditClassComponent,
   ],
   entryComponents: [
     DeleteDialogComponent,
-    EditSubjectComponent
+    EditSubjectComponent,
+    EditClassComponent
   ],
   providers: [
     AdminAuthResolver,

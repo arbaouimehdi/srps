@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Components
 import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+import { EditClassComponent } from '../edit/edit-class.component';
 
 // Models
 import { Class } from '../../../shared/models/class.model';
@@ -25,7 +26,7 @@ export class ManageClassesComponent implements OnInit {
   claass: Class;
   dataSource;
   displayedColumns = [
-    'name',
+    'name_text',
     'name_numeric',
     'section',
     'createdAt',
@@ -131,6 +132,35 @@ export class ManageClassesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 1 ){
         this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
+  }
+
+  /**
+   * Update an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  updateItem(id, name_text, name_numeric, section) {
+    const dialogRef = this.dialog.open(EditClassComponent, {
+      data: { route: 'claass', id, name_text, name_numeric, section }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        let classes = this.dataSource._data.value;
+        let index = classes.findIndex(obj => obj._id === id);
+
+        let updated_claass = this.apiService.get(`/claass/${id}`).subscribe((data) => {
+          classes[index] = data.claass;
+          this.dataSource = new MatTableDataSource<Element>(classes);
+        });
+
       }
     });
 

@@ -15,7 +15,7 @@ export class ClassesService {
   // C
   // Create a new Class
   add(claass): Observable<Class>  {
-    return this.apiService.post('/claass', claass);
+    return this.apiService.post('/claass/', claass);
   }
 
   // R

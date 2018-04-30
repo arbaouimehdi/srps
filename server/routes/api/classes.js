@@ -7,7 +7,7 @@ var auth = require('../auth');
 // C
 // Create a New Class
 router.post('/claass', function(req, res, next) {
-  
+
   var claass = new Claass(req.body.claass);
   claass.name_text = req.body.name_text;
   claass.name_numeric = req.body.name_numeric;
@@ -88,5 +88,17 @@ router.delete('/claass/:claass', function(req, res, next) {
     })
   }
 });
+
+// 
+// Get Selected Class Details
+router.get('/claass/:claass', function(req, res, next) {
+
+  let claass_id = req.params.claass;
+
+  Claass.findOne({ _id: claass_id }, function (err, claass) {
+    return res.send({claass});
+  });
+
+})
 
 module.exports = router;
