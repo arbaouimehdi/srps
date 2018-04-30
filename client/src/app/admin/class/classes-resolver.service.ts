@@ -8,7 +8,7 @@ import { Class } from '../../shared/models/class.model';
 import { catchError } from 'rxjs/operators/catchError';
 
 @Injectable()
-export class SubjectResolver implements Resolve<Class> {
+export class ClassResolver implements Resolve<Class> {
   constructor(
     private classesService: ClassesService,
     private router: Router,

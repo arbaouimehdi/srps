@@ -15,7 +15,7 @@ export class ClassesService {
   // C
   // Create a new Class
   add(claass): Observable<Class>  {
-    return this.apiService.post('/class', claass);
+    return this.apiService.post('/claass', claass);
   }
 
   // R
@@ -31,14 +31,14 @@ export class ClassesService {
     let id = claass._id;
 
     if (claass) {
-      return this.apiService.put(`/class/${id}`, claass);
+      return this.apiService.put(`/claass/${id}`, claass);
     }
   }
 
   // D
   // Delete a Class
   destroy(id) {
-    return this.apiService.delete('/class/' + id);
+    return this.apiService.delete('/claass/' + id);
   }
 
 }

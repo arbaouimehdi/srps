@@ -38,7 +38,11 @@ import { HomeComponent } from './home/home.component';
 // Resolvers
 import { AdminAuthResolver } from './admin-auth-resolver.service';
 import { SubjectResolver } from './subject/subjects-resolver.service';
+import { ClassResolver } from './class/classes-resolver.service';
+
+// Services
 import { SubjectsService } from '../shared/services/subject.service';
+import { ClassesService } from '../shared/services/class.service';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -66,7 +70,10 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'manage-classes',
-        component: ManageClassesComponent
+        component: ManageClassesComponent,
+        resolve: {
+          claass: ClassResolver
+        }
       },
       {
         path: 'add-subject',
@@ -135,7 +142,9 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
   providers: [
     AdminAuthResolver,
     SubjectResolver,
-    SubjectsService
+    ClassResolver,
+    SubjectsService,
+    ClassesService,
   ]
 })
 export class AdminModule { }

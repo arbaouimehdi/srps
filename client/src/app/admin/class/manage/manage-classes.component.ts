@@ -1,5 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+
+// Components
+import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+
+// Models
+import { Class } from '../../../shared/models/class.model';
+
+// Services
+import { ClassesService } from '../../../shared/services/class.service';
+
+// Resolvers
+import { ClassResolver } from '../classes-resolver.service';
+import { ApiService } from '../../../shared';
 
 @Component({
   selector: 'app-manage-classes',
@@ -8,61 +22,120 @@ import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 })
 export class ManageClassesComponent implements OnInit {
 
+  claass: Class;
+  dataSource;
   displayedColumns = [
-    'position',
-    'className',
-    'classNameNumeric',
+    'name',
+    'name_numeric',
     'section',
-    'creationDate',
+    'createdAt',
+    'updatedAt',
     '_id'
   ];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  /**
+   * Constructor
+   *
+   *
+   * @param route
+   * @param classesService
+   * @param apiService
+   * @param router
+   * @param dialog
+   */
+  constructor(
+    private route: ActivatedRoute,
+    private classesService: ClassesService,
+    private apiService: ApiService,
+    private router: Router,
+    public dialog: MatDialog
+  ) { }
 
+  /**
+   *
+   *
+   * Init
+   *
+   *
+   */
   ngOnInit() {
-
+    // Retreive the prefetched Classes
+    this.route.data.subscribe(
+      (data) => {
+        this.dataSource = new MatTableDataSource<Element>(data.claass.classes);
+      }
+    );
   }
 
+  /**
+   *
+   * Pagniator
+   *
+   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Table Filter
+   *
+   *
+   * @param filterValue
+   */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
+  /**
+   * Refresh Table
+   *
+   *
+   * @param classes
+   */
+  refreshTable(classes, id) {
+
+    // Get the index of the data to remove
+    let index = classes.findIndex(obj => obj._id === id);
+
+    // Remove the selected data
+    classes.splice(index, 1);
+
+    // Update the List with the new data
+    this.dataSource = new MatTableDataSource<Element>(classes);
+
+    // Update the Pagniation
+    this.dataSource.paginator = this.paginator;
+
+  }
+
+  /**
+   * Delete an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  deleteItem(id) {
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {route: 'claass', id }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
+  }
+
+
 }
 
-export interface Element {
-  position: number;
-  className: string;
-  classNameNumeric: number;
-  section: string;
-  creationDate: string;
-  _id: number;
-}
-
-const ELEMENT_DATA: Element[] = [
-  {position: 1, className: 'One', classNameNumeric: 4, section: 'A', creationDate:'2018-02-25 12:11:12', _id: 75},
-  {position: 2, className: 'Two', classNameNumeric: 3, section: 'C', creationDate:'2018-02-25 12:11:12', _id: 75},
-  {position: 3, className: 'Kit', classNameNumeric: 4, section: 'B', creationDate:'2018-02-25 12:11:12', _id: 63},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-  {position: 4, className: 'Four', classNameNumeric: 1, section: 'D', creationDate:'2018-02-25 12:11:12', _id: 47},
-];
