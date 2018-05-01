@@ -15,7 +15,7 @@ let StudentSchema = new mongoose.Schema({
     maxlength: 30,
     index: true
   },
-  birth_date: { type: String, required: true },
+  birth_date: { type: Date, required: true },
 }, {timestamps: true});
 
 StudentSchema.methods.toJSONFor = function(user) {
