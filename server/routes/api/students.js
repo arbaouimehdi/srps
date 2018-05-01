@@ -100,4 +100,16 @@ router.delete('/student/:student', function(req, res, next) {
   }
 });
 
+// 
+// Get Selected Student Details
+router.get('/student/:student', function(req, res, next) {
+
+  let student_id = req.params.student;
+
+  Student.findOne({ _id: student_id }, function (err, student) {
+    return res.send({student});
+  });
+
+})
+
 module.exports = router;
