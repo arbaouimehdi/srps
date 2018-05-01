@@ -74,6 +74,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
         resolve: {
           student: StudentResolver,
           gender: GenderResolver,
+          claass: ClassResolver,
         }
       },
       {

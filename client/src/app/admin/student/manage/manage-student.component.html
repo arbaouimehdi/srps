@@ -44,7 +44,7 @@
       <!-- Class  -->
       <ng-container matColumnDef="class">
         <mat-header-cell *matHeaderCellDef> Class</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.class }} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ getClass(element.class) }} </mat-cell>
       </ng-container>
 
       <!-- Class  -->

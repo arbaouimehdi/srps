@@ -26,6 +26,7 @@ export class ManageStudentComponent implements OnInit {
   student: Student;
   dataSource;
   genders;
+  classes;
   displayedColumns = [
     'full_name',
     'roll_id',
@@ -72,6 +73,7 @@ export class ManageStudentComponent implements OnInit {
       (data) => {
         this.dataSource = new MatTableDataSource<Element>(data.student.students);
         this.genders = data.gender.genders;
+        this.classes = data.claass.classes;
       }
     );
 
@@ -145,7 +147,7 @@ export class ManageStudentComponent implements OnInit {
   }
 
   /**
-   * Get Gender Name
+   * Get Gender Type
    *
    *
    * @param id
@@ -154,6 +156,22 @@ export class ManageStudentComponent implements OnInit {
     let genders = this.genders;
     let gender_index = genders.findIndex(obj => obj._id === id)
     return genders[gender_index].type
+  }
+
+  /**
+   * Get Gender Type
+   *
+   *
+   * @param id
+   */
+  getClass(id) {
+    let classes = this.classes;
+    let class_index = classes.findIndex(obj => obj._id === id);
+
+    let section = classes[class_index].section;
+    let name_text = classes[class_index].name_text;
+
+    return `${name_text}(${section})`
   }
 
 }
