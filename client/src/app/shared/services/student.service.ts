@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 
 import { ApiService } from './api.service';
 import { Student } from '../models/student.model';
-import { map } from 'rxjs/operators/map';
+import { HttpModule} from "@angular/http";
 
 @Injectable()
 export class StudentsService {
