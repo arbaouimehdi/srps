@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
-import { Class } from '../models/class.model';
+import { Classe } from '../models/classe.model';
 import { map } from 'rxjs/operators/map';
 
 @Injectable()
@@ -14,8 +14,8 @@ export class ClassesService {
 
   // C
   // Create a new Class
-  add(claass): Observable<Class>  {
-    return this.apiService.post('/claass/', claass);
+  add(classe): Observable<Classe>  {
+    return this.apiService.post('/classe/', classe);
   }
 
   // R
@@ -26,19 +26,19 @@ export class ClassesService {
 
   // U
   // Update a Class
-  save(claass): Observable<Class> {
+  save(classe): Observable<Classe> {
     // If we're updating an existing article
-    let id = claass._id;
+    let id = classe._id;
 
-    if (claass) {
-      return this.apiService.put(`/claass/${id}`, claass);
+    if (classe) {
+      return this.apiService.put(`/classe/${id}`, classe);
     }
   }
 
   // D
   // Delete a Class
   destroy(id) {
-    return this.apiService.delete('/claass/' + id);
+    return this.apiService.delete('/classe/' + id);
   }
 
 }

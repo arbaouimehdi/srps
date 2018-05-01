@@ -1,24 +1,24 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var Claass = mongoose.model('Class');
+var Classe = mongoose.model('Classe');
 var User = mongoose.model('User');
 var auth = require('../auth');
 
 // C
 // Create a New Class
-router.post('/claass', function(req, res, next) {
+router.post('/classe', function(req, res, next) {
 
-  var claass = new Claass(req.body.claass);
-  claass.name_text = req.body.name_text;
-  claass.name_numeric = req.body.name_numeric;
-  claass.section = req.body.section;
+  var classe = new Classe(req.body.classe);
+  classe.name_text = req.body.name_text;
+  classe.name_numeric = req.body.name_numeric;
+  classe.section = req.body.section;
 
-  return claass.save(function(err, claass) {
+  return classe.save(function(err, classe) {
     if (err) {
       return res.status(404).json(err); 
     }
     else {
-      return res.json({claass});
+      return res.json({classe});
     }
   });
 
@@ -28,7 +28,7 @@ router.post('/claass', function(req, res, next) {
 // Read All Classes
 router.get('/classes', function(req, res, next) {
 
-  Claass.find({}, function(err, classes){
+  Classe.find({}, function(err, classes){
     if (!err) {
       res.json({
         classes: classes
@@ -40,30 +40,30 @@ router.get('/classes', function(req, res, next) {
 
 // U
 // Update the Countdown
-router.put('/claass/:claass', function(req, res, next) {
-  let claass_id = req.params.claass;
+router.put('/classe/:classe', function(req, res, next) {
+  let classe_id = req.params.classe;
 
-  Claass.findOne({ _id: claass_id }, function (err, claass) {
+  Classe.findOne({ _id: classe_id }, function (err, classe) {
     if (err) return handleError(err);
 
     if (typeof req.body.name_text !== 'undefined') {
-      claass.name_text = req.body.name_text;
+      classe.name_text = req.body.name_text;
     }
 
     if (typeof req.body.name_numeric !== 'undefined') {
-      claass.name_numeric = req.body.name_numeric;
+      classe.name_numeric = req.body.name_numeric;
     }
 
     if (typeof req.body.section !== 'undefined') {
-      claass.section = req.body.section;
+      classe.section = req.body.section;
     }
 
-    claass.save(function(err, claass) {
+    classe.save(function(err, classe) {
       console.log(err);
       if (err) {
         return res.status(404).send(err); 
       }else {
-        return res.send({claass});
+        return res.send({classe});
       }
     })
 
@@ -74,11 +74,10 @@ router.put('/claass/:claass', function(req, res, next) {
 
 // D
 // Delete a Class
-router.delete('/claass/:claass', function(req, res, next) {
-  let claass_id = req.params.claass;
-  console.log(claass_id);
-  if (claass_id) {
-    Claass.remove({ _id: claass_id}, (err, post) => {
+router.delete('/classe/:classe', function(req, res, next) {
+  let classe_id = req.params.classe;
+  if (classe_id) {
+    Classe.remove({ _id: classe_id}, (err, post) => {
       if (err) {
         return res.status(404).json(err); 
       }
@@ -91,12 +90,12 @@ router.delete('/claass/:claass', function(req, res, next) {
 
 // 
 // Get Selected Class Details
-router.get('/claass/:claass', function(req, res, next) {
+router.get('/classe/:classe', function(req, res, next) {
 
-  let claass_id = req.params.claass;
+  let classe_id = req.params.classe;
 
-  Claass.findOne({ _id: claass_id }, function (err, claass) {
-    return res.send({claass});
+  Classe.findOne({ _id: classe_id }, function (err, classe) {
+    return res.send({classe});
   });
 
 })

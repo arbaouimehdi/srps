@@ -3,23 +3,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 // Models
-import { Class } from '../../../shared/models/class.model';
+import { Classe } from '../../../shared/models/classe.model';
 
 // Services
-import { ClassesService } from '../../../shared/services/class.service';
+import { ClassesService } from '../../../shared/services/classe.service';
 
 // Resolvers
-import { ClassResolver } from '../classes-resolver.service';
+import { ClasseResolver } from '../classes-resolver.service';
 
 @Component({
-  selector: 'app-add-class',
-  templateUrl: './add-class.component.html',
-  styleUrls: ['./add-class.component.scss']
+  selector: 'app-add-classe',
+  templateUrl: './add-classe.component.html',
+  styleUrls: ['./add-classe.component.scss']
 })
 export class AddClassComponent implements OnInit {
 
   isSubmitting = false;
-  claass: Class = {} as Class;
+  classe: Classe = {} as Classe;
   classForm: FormGroup;
 
   /**

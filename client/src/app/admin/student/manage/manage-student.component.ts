@@ -74,7 +74,7 @@ export class ManageStudentComponent implements OnInit {
       (data) => {
         this.dataSource = new MatTableDataSource<Element>(data.student.students);
         this.genders = data.gender.genders;
-        this.classes = data.claass.classes;
+        this.classes = data.classe.classes;
       }
     );
 
@@ -154,11 +154,11 @@ export class ManageStudentComponent implements OnInit {
    * @param id
    * @param route
    */
-  updateItem(id, full_name, roll_id, birth_date, gender, claass) {
+  updateItem(id, full_name, roll_id, birth_date, gender, classe) {
 
     const route = 'student';
     const dialogRef = this.dialog.open(EditStudentComponent, {
-      data: { route: `${route}`, id, full_name, roll_id, birth_date, gender, claass }
+      data: { route: `${route}`, id, full_name, roll_id, birth_date, gender, classe }
     });
 
     //
@@ -201,10 +201,10 @@ export class ManageStudentComponent implements OnInit {
    */
   getClass(id) {
     let classes = this.classes;
-    let class_index = classes.findIndex(obj => obj._id === id);
+    let classe_index = classes.findIndex(obj => obj._id === id);
 
-    let section = classes[class_index].section;
-    let name_text = classes[class_index].name_text;
+    let section = classes[classe_index].section;
+    let name_text = classes[classe_index].name_text;
 
     return `${name_text}(${section})`
   }

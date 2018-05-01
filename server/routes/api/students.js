@@ -11,7 +11,7 @@ router.post('/student', function(req, res, next) {
   var student = new Student(req.body.student);
 
   student.gender     = req.body.gender;
-  student.class      = req.body.class;
+  student.classe     = req.body.classe;
   student.full_name  = req.body.full_name;
   student.roll_id    = req.body.roll_id;
   student.email      = req.body.email;
@@ -52,8 +52,8 @@ router.put('/student/:student', function(req, res, next) {
       student.gender = req.body.gender;
     }
 
-    if (typeof req.body.class !== 'undefined') {
-      student.class = req.body.class;
+    if (typeof req.body.classe !== 'undefined') {
+      student.classe = req.body.classe;
     }
 
     if (typeof req.body.full_name !== 'undefined') {

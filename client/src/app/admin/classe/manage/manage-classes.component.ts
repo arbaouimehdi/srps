@@ -4,16 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Components
 import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
-import { EditClassComponent } from '../edit/edit-class.component';
+import { EditClassComponent } from '../edit/edit-classe.component';
 
 // Models
-import { Class } from '../../../shared/models/class.model';
+import { Classe } from '../../../shared/models/classe.model';
 
 // Services
-import { ClassesService } from '../../../shared/services/class.service';
+import { ClassesService } from '../../../shared/services/classe.service';
 
 // Resolvers
-import { ClassResolver } from '../classes-resolver.service';
+import { ClasseResolver } from '../classes-resolver.service';
 import { ApiService } from '../../../shared';
 
 @Component({
@@ -23,7 +23,7 @@ import { ApiService } from '../../../shared';
 })
 export class ManageClassesComponent implements OnInit {
 
-  claass: Class;
+  classe: Classe;
   dataSource;
   displayedColumns = [
     'name_text',
@@ -65,7 +65,7 @@ export class ManageClassesComponent implements OnInit {
     // Retreive the prefetched Classes
     this.route.data.subscribe(
       (data) => {
-        this.dataSource = new MatTableDataSource<Element>(data.claass.classes);
+        this.dataSource = new MatTableDataSource<Element>(data.classe.classes);
       }
     );
   }
@@ -124,7 +124,7 @@ export class ManageClassesComponent implements OnInit {
   deleteItem(id) {
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {route: 'claass', id }
+      data: {route: 'classe', id }
     });
 
     //
@@ -146,7 +146,7 @@ export class ManageClassesComponent implements OnInit {
    */
   updateItem(id, name_text, name_numeric, section) {
     const dialogRef = this.dialog.open(EditClassComponent, {
-      data: { route: 'claass', id, name_text, name_numeric, section }
+      data: { route: 'classe', id, name_text, name_numeric, section }
     });
 
     //
@@ -156,8 +156,8 @@ export class ManageClassesComponent implements OnInit {
         let classes = this.dataSource._data.value;
         let index = classes.findIndex(obj => obj._id === id);
 
-        let updated_claass = this.apiService.get(`/claass/${id}`).subscribe((data) => {
-          classes[index] = data.claass;
+        let updated_classe = this.apiService.get(`/classe/${id}`).subscribe((data) => {
+          classes[index] = data.classe;
           this.dataSource = new MatTableDataSource<Element>(classes);
         });
 

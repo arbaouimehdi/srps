@@ -43,7 +43,7 @@ if(isProduction){
 
 // Models
 require('./models/User');
-require('./models/Class');
+require('./models/Classe');
 require('./models/Gender');
 require('./models/Student');
 require('./models/Subject');

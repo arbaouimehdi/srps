@@ -44,7 +44,7 @@
       <!-- Class  -->
       <ng-container matColumnDef="class">
         <mat-header-cell *matHeaderCellDef> Class</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ getClass(element.class) }} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ getClass(element.classe) }} </mat-cell>
       </ng-container>
 
       <!-- Class  -->
@@ -78,7 +78,7 @@
             element.roll_id,
             element.birth_date,
             element.gender,
-            element.class)">
+            element.classe)">
             Edit
           </button>
           <button mat-raised-button color="warn" (click)="deleteItem(element._id)">Delete</button>

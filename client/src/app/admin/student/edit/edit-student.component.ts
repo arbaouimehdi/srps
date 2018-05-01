@@ -6,11 +6,11 @@ import { Observable } from 'rxjs/Observable';
 // Models
 import { Student } from '../../../shared/models/student.model';
 import { Gender } from '../../../shared/models/gender.model';
-import { Class } from '../../../shared/models/class.model';
+import { Classe } from '../../../shared/models/classe.model';
 
 import { ApiService } from '../../../shared/services/api.service';
 import { GendersService } from '../../../shared/services/gender.service';
-import { ClassesService } from '../../../shared/services/class.service';
+import { ClassesService } from '../../../shared/services/classe.service';
 
 @Component({
   selector: 'app-edit-student',
@@ -20,13 +20,13 @@ import { ClassesService } from '../../../shared/services/class.service';
 export class EditStudentComponent {
 
   genders: Gender;
-  classes: Class;
+  classes: Classe;
 
   constructor(
     public dialogRef: MatDialogRef<EditStudentComponent>,
     public apiService: ApiService,
     public genderServices: GendersService,
-    public classServices: ClassesService,
+    public classeServices: ClassesService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -35,7 +35,7 @@ export class EditStudentComponent {
     this.genderServices.get('genders').subscribe((data) => {
       this.genders = data.genders;
     })
-    this.classServices.get('classes').subscribe((data) => {
+    this.classeServices.get('classes').subscribe((data) => {
       this.classes = data.classes;
     })
   }

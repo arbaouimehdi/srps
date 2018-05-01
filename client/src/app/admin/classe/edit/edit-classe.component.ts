@@ -3,13 +3,13 @@ import {Component, Inject} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Class } from '../../../shared/models/class.model';
+import { Classe } from '../../../shared/models/classe.model';
 import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
-  selector: 'app-edit-class',
-  templateUrl: './edit-class.component.html',
-  styleUrls: ['./edit-class.component.scss']
+  selector: 'app-edit-classe',
+  templateUrl: './edit-classe.component.html',
+  styleUrls: ['./edit-classe.component.scss']
 })
 export class EditClassComponent {
 
@@ -29,7 +29,7 @@ export class EditClassComponent {
   }
 
   stopEdit(): void {
-    this.apiService.put(`/claass/${this.data.id}`, this.data).subscribe();
+    this.apiService.put(`/classe/${this.data.id}`, this.data).subscribe();
   }
 
 

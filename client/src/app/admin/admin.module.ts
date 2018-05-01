@@ -29,11 +29,11 @@ import { GendersService } from '../shared/services/gender.service';
 import { GenderResolver } from './genders/genders-resolver.service';
 
 // Classes
-import { AddClassComponent } from './class/add/add-class.component';
-import { ManageClassesComponent } from './class/manage/manage-classes.component';
-import { EditClassComponent } from './class/edit/edit-class.component';
-import { ClassesService } from '../shared/services/class.service';
-import { ClassResolver } from './class/classes-resolver.service';
+import { AddClassComponent } from './classe/add/add-classe.component';
+import { ManageClassesComponent } from './classe/manage/manage-classes.component';
+import { EditClassComponent } from './classe/edit/edit-classe.component';
+import { ClassesService } from '../shared/services/classe.service';
+import { ClasseResolver } from './classe/classes-resolver.service';
 
 // Subjects
 import { AddSubjectComponent } from './subject/add/add-subject.component';
@@ -75,7 +75,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
         resolve: {
           student: StudentResolver,
           gender: GenderResolver,
-          claass: ClassResolver,
+          classe: ClasseResolver,
         }
       },
       {
@@ -86,7 +86,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'manage-classes',
         component: ManageClassesComponent,
         resolve: {
-          claass: ClassResolver
+          classe: ClasseResolver
         }
       },
       {
@@ -180,7 +180,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     // Resolvers
     AdminAuthResolver,
     SubjectResolver,
-    ClassResolver,
+    ClasseResolver,
     StudentResolver,
     GenderResolver,
 

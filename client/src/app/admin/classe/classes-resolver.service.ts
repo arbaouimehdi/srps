@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from '../../shared/services/user.service';
-import { ClassesService } from '../../shared/services/class.service';
-import { Class } from '../../shared/models/class.model';
+import { ClassesService } from '../../shared/services/classe.service';
+import { Classe } from '../../shared/models/classe.model';
 import { catchError } from 'rxjs/operators/catchError';
 
 @Injectable()
-export class ClassResolver implements Resolve<Class> {
+export class ClasseResolver implements Resolve<Classe> {
   constructor(
     private classesService: ClassesService,
     private router: Router,

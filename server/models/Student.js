@@ -4,7 +4,7 @@ const email_regx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 
 let StudentSchema = new mongoose.Schema({
   gender: {type: mongoose.Schema.Types.ObjectId, ref: 'Gender', required: true },
-  class: {type: mongoose.Schema.Types.ObjectId, ref: 'Class', required: true },
+  classe: {type: mongoose.Schema.Types.ObjectId, ref: 'Class', required: true },
   full_name: { type: String, required: true },
   roll_id: { type: String, required: true },
   email: { 
@@ -21,7 +21,7 @@ let StudentSchema = new mongoose.Schema({
 StudentSchema.methods.toJSONFor = function(user) {
   return {
     gender: this.gender,
-    class: this.class,
+    classe: this.classe,
     full_name: this.full_name,
     roll_id: this.roll_id,
     email: this.email,
