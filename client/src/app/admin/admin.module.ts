@@ -4,12 +4,18 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-// Components
-import { AdminComponent } from './admin.component';
+// Shared
+import { SharedModule } from '../shared/shared.module';
 import { DeleteDialogComponent } from '../shared/dialogs/delete/delete.dialog.component';
 
-// Modules
-import { SharedModule } from '../shared/shared.module';
+// Admin
+import { AdminComponent } from './admin.component';
+
+// Authentication
+import { AdminAuthResolver } from './admin-auth-resolver.service';
+
+// Home
+import { HomeComponent } from './home/home.component';
 
 // Students
 import { AddStudentComponent } from './student/add-student.component';
@@ -19,11 +25,15 @@ import { ManageStudentComponent } from './student/manage-student.component';
 import { AddClassComponent } from './class/add/add-class.component';
 import { ManageClassesComponent } from './class/manage/manage-classes.component';
 import { EditClassComponent } from './class/edit/edit-class.component';
+import { ClassesService } from '../shared/services/class.service';
+import { ClassResolver } from './class/classes-resolver.service';
 
 // Subjects
 import { AddSubjectComponent } from './subject/add/add-subject.component';
 import { ManageSubjectsComponent } from './subject/manage/manage-subjects.component';
 import { EditSubjectComponent } from '../admin/subject/edit/edit-subject.component';
+import { SubjectsService } from '../shared/services/subject.service';
+import { SubjectResolver } from './subject/subjects-resolver.service';
 
 // Subject Combinations
 import { AddSubjectCombinationComponent } from './subject/combination/add-subject-combination.component';
@@ -33,17 +43,8 @@ import { ManageSubjectsCombinationComponent } from './subject/combination/manage
 import { ManageResultsComponent } from './result/manage-results.component';
 import { AddResultComponent } from './result/add-result.component';
 
+// Profile
 import { PasswordComponent } from './profile/password.component';
-import { HomeComponent } from './home/home.component';
-
-// Resolvers
-import { AdminAuthResolver } from './admin-auth-resolver.service';
-import { SubjectResolver } from './subject/subjects-resolver.service';
-import { ClassResolver } from './class/classes-resolver.service';
-
-// Services
-import { SubjectsService } from '../shared/services/subject.service';
-import { ClassesService } from '../shared/services/class.service';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
   {
