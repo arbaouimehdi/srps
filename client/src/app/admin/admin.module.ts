@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 // Students
 import { AddStudentComponent } from './student/add/add-student.component';
 import { ManageStudentComponent } from './student/manage/manage-student.component';
+import { EditStudentComponent } from '../admin/student/edit/edit-student.component';
 import { StudentsService } from '../shared/services/student.service';
 import { StudentResolver } from './student/students-resolver.service';
 
@@ -166,11 +167,13 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     DeleteDialogComponent,
     EditSubjectComponent,
     EditClassComponent,
+    EditStudentComponent
   ],
   entryComponents: [
     DeleteDialogComponent,
     EditSubjectComponent,
-    EditClassComponent
+    EditClassComponent,
+    EditStudentComponent
   ],
   providers: [
 

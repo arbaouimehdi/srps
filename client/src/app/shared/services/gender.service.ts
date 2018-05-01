@@ -20,7 +20,7 @@ export class GendersService {
 
   // R
   // Get all the Gender
-  get(slug): Observable<Gender> {
+  get(slug) {
     return this.apiService.get('/genders')
   }
 

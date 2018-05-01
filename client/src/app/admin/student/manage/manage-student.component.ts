@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Components
 import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+import { EditStudentComponent } from '../edit/edit-student.component';
 
 // Models
 import { Student } from '../../../shared/models/student.model';
@@ -141,6 +142,40 @@ export class ManageStudentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 1 ){
         this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
+  }
+
+  /**
+   * Update an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  updateItem(id, full_name, roll_id, birth_date, gender, claass) {
+
+    const route = 'student';
+    const dialogRef = this.dialog.open(EditStudentComponent, {
+      data: { route: `${route}`, id, full_name, roll_id, birth_date, gender, claass }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        let students = this.dataSource._data.value;
+        let index = students.findIndex(obj => obj._id === id);
+
+        console.log(students[index]);
+
+        let updated_student = this.apiService.get(`/${route}/${id}`).subscribe((data) => {
+          students[index] = data.student;
+          console.log(students[index]);
+          this.dataSource = new MatTableDataSource<Element>(students);
+        });
+
       }
     });
 

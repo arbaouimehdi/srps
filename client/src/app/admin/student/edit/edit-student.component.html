@@ -1,0 +1,42 @@
+<h3 mat-dialog-title>Edit: {{data.full_name}}</h3>
+
+<!-- Full Name -->
+<mat-form-field>
+  <input matInput placeholder="Full Name" [(ngModel)]="data.full_name" required>
+</mat-form-field>
+
+<!-- Roll ID -->
+<mat-form-field>
+  <input matInput #rollID maxlength="4" placeholder="Roll ID" [(ngModel)]="data.roll_id" required>
+  <mat-hint>{{rollID.value?.length || 0}}/3 - Eg- 1,2,4,5 etc</mat-hint>
+</mat-form-field>
+
+<!-- Gender -->
+<mat-form-field>
+  <mat-select placeholder="Select Class" [(ngModel)]="data.gender" required>
+    <mat-option *ngFor="let gender of genders" [value]="gender._id">
+      {{gender.type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Class -->
+<mat-form-field>
+  <mat-select placeholder="Select Class" [(ngModel)]="data.claass" required>
+    <mat-option *ngFor="let claass of classes" [value]="claass._id">
+      {{claass.name_text}} - Section({{claass.section}})
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Date of Birth -->
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="data.birth_date" >
+  <mat-datepicker-toggle matSuffix [for]="picker">
+    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+  </mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+<button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>

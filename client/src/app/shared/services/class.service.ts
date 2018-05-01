@@ -20,7 +20,7 @@ export class ClassesService {
 
   // R
   // Get all the Classes
-  get(slug): Observable<Class> {
+  get(slug) {
     return this.apiService.get('/classes')
   }
 
