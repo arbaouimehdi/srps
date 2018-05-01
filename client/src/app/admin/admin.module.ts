@@ -67,7 +67,11 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'add-student',
-        component: AddStudentComponent
+        component: AddStudentComponent,
+        resolve: {
+          gender: GenderResolver,
+          classe: ClasseResolver,
+        }
       },
       {
         path: 'manage-students',
