@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 
 @Component({
-  selector: 'app-manage-subjects-combination',
-  templateUrl: './manage-subjects-combination.component.html',
-  styleUrls: ['./manage-subjects-combination.component.scss']
+  selector: 'app-manage-combinations',
+  templateUrl: './manage-combinations.component.html',
+  styleUrls: ['./manage-combinations.component.scss']
 })
-export class ManageSubjectsCombinationComponent implements OnInit {
+export class ManageCombinationsComponent implements OnInit {
 
   displayedColumns = [
     'position',

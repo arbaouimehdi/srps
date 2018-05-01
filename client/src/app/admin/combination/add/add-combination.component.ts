@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-add-subject-combination',
-  templateUrl: './add-subject-combination.component.html',
-  styleUrls: ['./add-subject-combination.component.scss']
+  selector: 'app-add-combination',
+  templateUrl: './add-combination.component.html',
+  styleUrls: ['./add-combination.component.scss']
 })
-export class AddSubjectCombinationComponent implements OnInit {
+export class AddCombinationComponent implements OnInit {
 
   subjects = [
     { name: 'English' },

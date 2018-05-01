@@ -43,8 +43,8 @@ import { SubjectsService } from '../shared/services/subject.service';
 import { SubjectResolver } from './subject/subjects-resolver.service';
 
 // Subject Combinations
-import { AddSubjectCombinationComponent } from './subject/combination/add-subject-combination.component';
-import { ManageSubjectsCombinationComponent } from './subject/combination/manage-subjects-combination.component';
+import { AddCombinationComponent } from './combination/add/add-combination.component';
+import { ManageCombinationsComponent } from './combination/manage/manage-combinations.component';
 
 // Results
 import { ManageResultsComponent } from './result/manage-results.component';
@@ -106,11 +106,11 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'add-subject-combination',
-        component: AddSubjectCombinationComponent
+        component: AddCombinationComponent
       },
       {
         path: 'manage-subjects-combination',
-        component: ManageSubjectsCombinationComponent,
+        component: ManageCombinationsComponent,
       },
       {
         path: 'add-result',
@@ -154,8 +154,8 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     ManageSubjectsComponent,
 
     // Subjects Combination
-    AddSubjectCombinationComponent,
-    ManageSubjectsCombinationComponent,
+    AddCombinationComponent,
+    ManageCombinationsComponent,
 
     // Results
     ManageResultsComponent,
