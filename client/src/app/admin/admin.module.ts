@@ -21,7 +21,11 @@ import { HomeComponent } from './home/home.component';
 import { AddStudentComponent } from './student/add/add-student.component';
 import { ManageStudentComponent } from './student/manage/manage-student.component';
 import { StudentsService } from '../shared/services/student.service';
-import { StudentResolver } from './student/student-resolver.service';
+import { StudentResolver } from './student/students-resolver.service';
+
+// Genders
+import { GendersService } from '../shared/services/gender.service';
+import { GenderResolver } from './genders/genders-resolver.service';
 
 // Classes
 import { AddClassComponent } from './class/add/add-class.component';
@@ -68,7 +72,8 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'manage-students',
         component: ManageStudentComponent,
         resolve: {
-          student: StudentResolver
+          student: StudentResolver,
+          gender: GenderResolver,
         }
       },
       {
@@ -173,11 +178,13 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     SubjectResolver,
     ClassResolver,
     StudentResolver,
+    GenderResolver,
 
     // Services
     SubjectsService,
     ClassesService,
     StudentsService,
+    GendersService
   ]
 })
 export class AdminModule { }

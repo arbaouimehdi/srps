@@ -77,4 +77,16 @@ router.delete('/gender/:gender', function(req, res, next) {
   }
 });
 
+// 
+// Get Selected Gender Details
+router.get('/gender/:gender', function(req, res, next) {
+
+  let gender_id = req.params.gender;
+
+  Gender.findOne({ _id: gender_id }, function (err, gender) {
+    return res.send({gender});
+  });
+
+})
+
 module.exports = router;
