@@ -11,7 +11,7 @@ router.post('/combination', function(req, res, next) {
   var combination = new Combination(req.body.combination);
 
   combination.subject = req.body.subject;
-  combination.class   = req.body.class;
+  combination.classe   = req.body.classe;
   combination.status  = req.body.status;
 
   return combination.save(function(err, combination) {
@@ -49,8 +49,8 @@ router.put('/combination/:combination', function(req, res, next) {
       combination.subject = req.body.subject;
     }
 
-    if (typeof req.body.class !== 'undefined') {
-      combination.class = req.body.class;
+    if (typeof req.body.classe !== 'undefined') {
+      combination.classe = req.body.classe;
     }
     
     if (typeof req.body.status !== 'undefined') {
@@ -84,5 +84,17 @@ router.delete('/combination/:combination', function(req, res, next) {
     })
   }
 });
+
+// 
+// Get Selected Combination Details
+router.get('/combination/:combination', function(req, res, next) {
+
+  let combination_id = req.params.combination;
+
+  Combination.findOne({ _id: combination_id }, function (err, combination) {
+    return res.send({combination});
+  });
+
+})
 
 module.exports = router;
