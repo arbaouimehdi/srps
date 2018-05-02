@@ -45,6 +45,7 @@ import { SubjectResolver } from './subject/subjects-resolver.service';
 // Subject Combinations
 import { AddCombinationComponent } from './combination/add/add-combination.component';
 import { ManageCombinationsComponent } from './combination/manage/manage-combinations.component';
+import { EditCombinationComponent } from './combination/edit/edit-combination.component';
 import { CombinationsService } from '../shared/services/combination.service';
 import { CombinationResolver } from './combination/combinations-resolver.service';
 
@@ -108,7 +109,11 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'add-subject-combination',
-        component: AddCombinationComponent
+        component: AddCombinationComponent,
+        resolve: {
+          subject: SubjectResolver,
+          classe: ClasseResolver,
+        }
       },
       {
         path: 'manage-subjects-combination',
@@ -178,13 +183,15 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     DeleteDialogComponent,
     EditSubjectComponent,
     EditClassComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    EditCombinationComponent,
   ],
   entryComponents: [
     DeleteDialogComponent,
     EditSubjectComponent,
     EditClassComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    EditCombinationComponent
   ],
   providers: [
 

@@ -1,0 +1,22 @@
+<h3 mat-dialog-title>Edit</h3>
+
+<!-- Section -->
+<mat-form-field>
+  <mat-select placeholder="Select Subject" [(ngModel)]="data.subject" required>
+    <mat-option *ngFor="let subject of subjects" [value]="subject._id">
+      {{subject.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Class -->
+<mat-form-field>
+  <mat-select placeholder="Select Class" [(ngModel)]="data.classe" required>
+    <mat-option *ngFor="let classe of classes" [value]="classe._id">
+      {{classe.name_text}} - Section({{classe.section}})
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+<button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>

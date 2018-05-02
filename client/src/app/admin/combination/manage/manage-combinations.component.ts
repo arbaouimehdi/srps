@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Components
 import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+import { EditCombinationComponent } from '../edit/edit-combination.component';
 
 // Models
 import { Combination } from '../../../shared/models/combination.model';
@@ -68,7 +69,7 @@ export class ManageCombinationsComponent implements OnInit {
    */
   ngOnInit() {
 
-    // Retreive the prefetched Students
+    // Retreive the prefetched Subjects
     this.route.data.subscribe(
       (data) => {
         this.dataSource = new MatTableDataSource<Element>(data.combination.combinations);
@@ -142,6 +143,58 @@ export class ManageCombinationsComponent implements OnInit {
       if (result == 1 ){
         this.refreshTable(this.dataSource._data.value, id);
       }
+    });
+
+  }
+
+ /**
+   * Update an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  updateItem(id, status, subject, classe) {
+    const route = 'combination';
+    const dialogRef = this.dialog.open(EditCombinationComponent, {
+      data: { route: `${route}`, id, status, subject, classe }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        let combinations = this.dataSource._data.value;
+        let index = combinations.findIndex(obj => obj._id === id);
+
+        let updated_combination = this.apiService.get(`/${route}/${id}`).subscribe((data) => {
+          combinations[index] = data.combination;
+          this.dataSource = new MatTableDataSource<Element>(combinations);
+        });
+
+      }
+    });
+
+  }
+
+  /**
+   * Update Status
+   *
+   *
+   * @param id
+   * @param status
+   */
+  updateStatus(id, status) {
+
+    const route = 'combination';
+    let combinations = this.dataSource._data.value;
+    let index = combinations.findIndex(obj => obj._id === id);
+    let combination = combinations[index];
+    combination.status = !status;
+
+    this.apiService.put(`/combination/${id}`, combination).subscribe((data) => {
+      combinations[index] = data.combination;
+      this.dataSource = new MatTableDataSource<Element>(combinations);
     });
 
   }

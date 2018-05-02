@@ -20,7 +20,7 @@ export class SubjectsService {
 
   // R
   // Get all the Subjects
-  get(slug): Observable<Subject> {
+  get(slug) {
     return this.apiService.get('/subjects')
   }
 
