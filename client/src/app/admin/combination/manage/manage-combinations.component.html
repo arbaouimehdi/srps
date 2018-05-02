@@ -21,30 +21,36 @@
 
     <!-- # Table -->
     <div class="mat-elevation-z8">
-      <mat-table #table [dataSource]="dataSource">
+      <mat-table #table [dataSource]="dataSource" matSort>
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-        </ng-container>
-
-        <!-- Class and Section Name -->
-        <ng-container matColumnDef="classAndSection">
+        <!-- Class  -->
+        <ng-container matColumnDef="class">
           <mat-header-cell *matHeaderCellDef> Class &amp; Section Name</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.classAndSection}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ getClass(element.classe) }} </mat-cell>
         </ng-container>
 
         <!-- Subject -->
         <ng-container matColumnDef="subject">
           <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ getSubject(element.subject) }} </mat-cell>
         </ng-container>
 
         <!-- Status -->
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+        </ng-container>
+
+        <!-- Creation Date -->
+        <ng-container matColumnDef="createdAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Update Date -->
+        <ng-container matColumnDef="updatedAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Update Date</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.updatedAt | date:'dd/MM/yyyy - HH:mm:ss'}} </mat-cell>
         </ng-container>
 
         <!-- Actions Column -->

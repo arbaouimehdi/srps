@@ -1,5 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+
+// Components
+import { DeleteDialogComponent } from '../../../shared/dialogs/delete/delete.dialog.component';
+
+// Models
+import { Combination } from '../../../shared/models/combination.model';
+import { Classe } from '../../../shared/models/classe.model';
+import { Subject } from '../../../shared/models/subject.model';
+
+// Services
+import { CombinationsService } from '../../../shared/services/combination.service';
+
+// Resolvers
+import { CombinationResolver } from '../combinations-resolver.service';
+import { ApiService } from '../../../shared';
 
 @Component({
   selector: 'app-manage-combinations',
@@ -8,44 +24,159 @@ import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 })
 export class ManageCombinationsComponent implements OnInit {
 
+  combinations: Combination;
+  classes;
+  subjects;
+  dataSource;
+
   displayedColumns = [
-    'position',
-    'classAndSection',
     'subject',
+    'class',
     'status',
+    'createdAt',
+    'updatedAt',
     '_id'
   ];
 
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  /**
+   * Constructor
+   *
+   *
+   * @param route
+   * @param combinationsService
+   * @param apiService
+   * @param router
+   * @param dialog
+   */
+  constructor(
+    private route: ActivatedRoute,
+    private combinationsService: CombinationsService,
+    private apiService: ApiService,
+    private router: Router,
+    public dialog: MatDialog
+  ) { }
 
+  /**
+   *
+   *
+   * Init
+   *
+   *
+   */
   ngOnInit() {
+
+    // Retreive the prefetched Students
+    this.route.data.subscribe(
+      (data) => {
+        this.dataSource = new MatTableDataSource<Element>(data.combination.combinations);
+        this.classes = data.classe.classes;
+        this.subjects = data.subject.subjects;
+      }
+    );
+
   }
 
+  /**
+   *
+   * Pagniator & Sort
+   *
+   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Table Filter
+   *
+   *
+   * @param filterValue
+   */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
-}
+  /**
+   * Refresh Table
+   *
+   *
+   * @param combinations
+   */
+  refreshTable(combinations, id) {
 
-export interface Element {
-  position: number;
-  classAndSection: string;
-  subject: string;
-  status: number;
-  _id: number;
-}
+    // Get the index of the data to remove
+    let index = combinations.findIndex(obj => obj._id === id);
 
-const ELEMENT_DATA: Element[] = [
-  {position: 1, classAndSection: 'One Section-A', subject: "English", status: 0, _id: 1},
-  {position: 1, classAndSection: 'One Section-A', subject: "Math", status: 1, _id: 1},
-  {position: 1, classAndSection: 'One Section-A', subject: "Computer Science", status: 1, _id: 1},
-];
+    // Remove the selected data
+    combinations.splice(index, 1);
+
+    // Update the List with the new data
+    this.dataSource = new MatTableDataSource<Element>(combinations);
+
+    // Update the Pagniation
+    this.dataSource.paginator = this.paginator;
+
+  }
+
+  /**
+   * Delete an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  deleteItem(id) {
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {route: 'combination', id }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
+  }
+
+  /**
+   * Get Gender Type
+   *
+   *
+   * @param id
+   */
+  getClass(id) {
+    let classes = this.classes;
+    let classe_index = classes.findIndex(obj => obj._id === id);
+
+    let section = classes[classe_index].section;
+    let name_text = classes[classe_index].name_text;
+
+    return `${name_text}(${section})`
+
+  }
+
+
+  /**
+   * Get Gender Type
+   *
+   *
+   * @param id
+   */
+  getSubject(id) {
+    let subjects = this.subjects;
+    let subject_index = subjects.findIndex(obj => obj._id === id);
+
+    let subject = subjects[subject_index].name;
+
+    return subject
+  }
+
+}
