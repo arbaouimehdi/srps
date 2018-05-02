@@ -25,13 +25,13 @@
 
         <!-- Class  -->
         <ng-container matColumnDef="class">
-          <mat-header-cell *matHeaderCellDef> Class &amp; Section Name</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Class &amp; Section Name</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ getClass(element.classe) }} </mat-cell>
         </ng-container>
 
         <!-- Subject -->
         <ng-container matColumnDef="subject">
-          <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Subject</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ getSubject(element.subject) }} </mat-cell>
         </ng-container>
 
@@ -49,7 +49,7 @@
 
         <!-- Status -->
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <mat-slide-toggle [(ngModel)]="element.status" (click)="updateStatus(element._id, element.status)"></mat-slide-toggle>
             {{element.status}}
@@ -77,6 +77,9 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
+
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
     </div>
 
 </mat-card>
