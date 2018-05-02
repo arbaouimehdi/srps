@@ -52,7 +52,6 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <mat-slide-toggle [(ngModel)]="element.status" (click)="updateStatus(element._id, element.status)"></mat-slide-toggle>
-            {{element.status}}
           </mat-cell>
         </ng-container>
 

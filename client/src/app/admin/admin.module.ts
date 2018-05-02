@@ -98,7 +98,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'add-subject',
-        component: AddSubjectComponent
+        component: AddSubjectComponent,
       },
       {
         path: 'manage-subjects',

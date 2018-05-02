@@ -2,27 +2,36 @@
 
 <mat-card class="card-form">
 
-  <mat-form-field>
-    <mat-select placeholder="Select Class" required>
-      <mat-option>--</mat-option>
-      <mat-option *ngFor="let class of classes" [value]="class">
-        {{class.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form [formGroup]="combinationForm">
 
-  <mat-form-field>
-    <mat-select placeholder="Select Subject" required>
-      <mat-option>--</mat-option>
-      <mat-option *ngFor="let subject of subjects" [value]="subject">
-        {{subject.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <!-- Subject -->
+    <mat-form-field>
+      <mat-select placeholder="Select Subject" formControlName="subject" required>
+        <mat-option *ngFor="let subject of subjects" [value]="subject._id">
+          {{subject.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button mat-raised-button color="primary">
-    <mat-icon mat-list-icon>add</mat-icon>
-    Submit
-  </button>
+    <!-- Class -->
+    <mat-form-field>
+      <mat-select placeholder="Select Class" formControlName="classe" required>
+        <mat-option *ngFor="let classe of classes" [value]="classe._id">
+          {{classe.name_text}} - Section({{classe.section}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Status -->
+    <p>
+      <mat-slide-toggle formControlName="status">Slide</mat-slide-toggle>
+    </p>
+
+    <button mat-raised-button color="primary" (click)="addItem()">
+      <mat-icon mat-list-icon>add</mat-icon>
+      Submit
+    </button>
+
+  </form>
 
 </mat-card>

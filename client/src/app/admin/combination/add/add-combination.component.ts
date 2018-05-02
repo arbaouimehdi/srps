@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
+// Models
+import { Combination } from '../../../shared/models/combination.model';
+import { Subject } from '../../../shared/models/subject.model';
+import { Classe } from '../../../shared/models/classe.model';
+
+// Services
+import { CombinationsService } from '../../../shared/services/combination.service';
 
 @Component({
   selector: 'app-add-combination',
@@ -7,21 +17,71 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCombinationComponent implements OnInit {
 
-  subjects = [
-    { name: 'English' },
-    { name: 'Math' },
-    { name: 'Computer Science' }
-  ];
+  isSubmitting = false;
+  combinationForm: FormGroup;
+  combination: Combination;
+  subjects: Subject;
+  classes: Classe;
 
-  classes = [
-    {name: 'One Section-A'},
-    {name: 'Two Section-A'},
-    {name: 'KTT Section-H'}
-  ];
+  /**
+   * Consturctor
+   *
+   *
+   * @param combinationsService
+   * @param route
+   * @param fb
+   * @param router
+   */
+  constructor(
+    private combinationsService: CombinationsService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
+    this.combinationForm = this.fb.group({
+      classe: '',
+      subject: '',
+      status: '',
+    });
+  }
 
-  constructor() { }
-
+  /**
+   *
+   *
+   * Init
+   *
+   *
+   */
   ngOnInit() {
+    // Retreive the prefetched Combinations
+    this.route.data.subscribe(
+      (data) => {
+        this.subjects = data.subject.subjects;
+        this.classes = data.classe.classes;
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   * Add an Item
+   *
+   *
+   */
+  addItem(){
+    this.isSubmitting = true;
+
+    this.combinationsService
+      .add(this.combinationForm.value)
+      .subscribe(
+        success => {
+          this.router.navigateByUrl('admin/manage-subjects-combination')
+        },
+        err => {
+          this.isSubmitting = false;
+        }
+    );
   }
 
 }
