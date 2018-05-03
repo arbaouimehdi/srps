@@ -50,8 +50,10 @@ import { CombinationsService } from '../shared/services/combination.service';
 import { CombinationResolver } from './combination/combinations-resolver.service';
 
 // Results
-import { ManageResultsComponent } from './result/manage-results.component';
-import { AddResultComponent } from './result/add-result.component';
+import { AddResultComponent } from './result/add/add-result.component';
+import { ManageResultsComponent } from './result/manage/manage-results.component';
+import { ResultsService } from '../shared/services/result.service';
+import { ResultResolver } from './result/results-resolver.service';
 
 // Profile
 import { PasswordComponent } from './profile/password.component';
@@ -126,7 +128,11 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'add-result',
-        component: AddResultComponent
+        component: AddResultComponent,
+        resolve: {
+          student: StudentResolver,
+          combination: CombinationResolver,
+        }
       },
       {
         path: 'manage-results',
@@ -202,13 +208,15 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     StudentResolver,
     GenderResolver,
     CombinationResolver,
+    ResultResolver,
 
     // Services
     SubjectsService,
     ClassesService,
     StudentsService,
     GendersService,
-    CombinationsService
+    CombinationsService,
+    ResultsService,
   ]
 })
 export class AdminModule { }

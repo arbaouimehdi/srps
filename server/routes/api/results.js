@@ -85,4 +85,16 @@ router.delete('/result/:result', function(req, res, next) {
   }
 });
 
+// 
+// Get Selected Student Details
+router.get('/result/:result', function(req, res, next) {
+
+  let result_id = req.params.result;
+
+  Student.findOne({ _id: result_id }, function (err, result) {
+    return res.send({result});
+  });
+
+})
+
 module.exports = router;
