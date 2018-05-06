@@ -1,4 +1,4 @@
-<h1 class="heading-1">Result Admission</h1>
+<h1 class="heading-1">Declare Result</h1>
 
 <mat-card class="card-form">
 
@@ -32,6 +32,7 @@
         <div *ngIf="combination_subject.status === true">
           <mat-form-field>
             <input matInput type="number" placeholder="{{ combination_subject.subject.name }}" formControlName="score{{i}}" required>
+            <mat-hint>Enter Marks out of 100</mat-hint>
           </mat-form-field>
           <input type="hidden" class="hidden-subjects" [(ngModel)]="combination_subject.subject._id" formControlName="subject{{i}}">
         </div>
