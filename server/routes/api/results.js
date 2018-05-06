@@ -7,21 +7,31 @@ var auth = require('../auth');
 // C
 // Create a New Result
 router.post('/result', function(req, res, next) {
-  
-  var result = new Result(req.body.result);
 
-  result.student     = req.body.student;
-  result.combination = req.body.combination;
-  result.score       = req.body.score;
+  let results = []
 
-  return result.save(function(err, student) {
-    if (err) {
-      return res.status(404).json(err); 
+  for (let i = 0; i < req.body.length; i += 1) {
+    results[i] = new Result(req.body[i].result)
+
+    results[i].student = req.body[i].student;
+    results[i].classe  = req.body[i].classe;
+    results[i].subject = req.body[i].subject;
+    results[i].score   = req.body[i].score;
+
+  }
+  console.log('++++++++++++++++++++++++++++++');
+  console.log(results);
+  console.log('++++++++++++++++++++++++++++++');
+
+  Result.insertMany(results, function(error, docs) {
+    if (error) {
+      console.log(error);
+      return res.status(404).json(error); 
     }
     else {
-      return res.json({result});
+      return res.json({docs});
     }
-  });
+  })
 
 });
 
@@ -41,7 +51,7 @@ router.get('/results', function(req, res, next) {
 // Update the Result
 router.put('/result/:result', function(req, res, next) {
   let result_id = req.params.result;
-  
+
   Result.findOne({ _id: result_id }, function (err, result) {
     if (err) return handleError(err);
 
@@ -49,8 +59,8 @@ router.put('/result/:result', function(req, res, next) {
       result.student = req.body.student;
     }
 
-    if (typeof req.body.combination !== 'undefined') {
-      result.combination = req.body.combination;
+    if (typeof req.body.classe !== 'undefined') {
+      result.classe = req.body.classe;
     }
     
     if (typeof req.body.score !== 'undefined') {

@@ -132,6 +132,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
         resolve: {
           student: StudentResolver,
           combination: CombinationResolver,
+          classe: ClasseResolver,
         }
       },
       {

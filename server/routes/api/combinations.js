@@ -97,4 +97,18 @@ router.get('/combination/:combination', function(req, res, next) {
 
 })
 
+// 
+// Get Combination Subjects
+router.get('/combination/classe/:classe', function(req, res, next) {
+
+  let class_id = req.params.classe;
+
+  Combination.find({ classe: class_id })
+    .populate('subject')
+    .exec(function(err, combination) {
+      return res.send({combination});
+    });
+
+})
+
 module.exports = router;

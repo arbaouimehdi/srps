@@ -17,6 +17,8 @@ router.post('/student', function(req, res, next) {
   student.email      = req.body.email;
   student.birth_date = req.body.birth_date;
 
+  console.log(student);
+
   return student.save(function(err, student) {
     if (err) {
       return res.status(404).json(err); 

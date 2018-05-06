@@ -1,5 +1,5 @@
 export interface Result {
   student: string,
-  combination: string,
+  classe: string,
   score: number,
 }

@@ -70,7 +70,7 @@ export class AddStudentComponent implements OnInit {
    */
   addItem(){
     this.isSubmitting = true;
-
+    console.log(this.studentForm.value);
     this.studentsService
       .add(this.studentForm.value)
       .subscribe(
