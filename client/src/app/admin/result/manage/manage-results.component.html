@@ -65,7 +65,7 @@
           <button mat-raised-button color="primary">
             Edit
           </button>
-          <button mat-raised-button color="warn">Delete</button>
+          <button mat-raised-button color="warn" (click)="deleteItem(element.infos.student, element.infos.classe)">Delete</button>
         </mat-cell>
       </ng-container>
 

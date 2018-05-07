@@ -19,9 +19,6 @@ router.post('/result', function(req, res, next) {
     results[i].score   = req.body[i].score;
 
   }
-  console.log('++++++++++++++++++++++++++++++');
-  console.log(results);
-  console.log('++++++++++++++++++++++++++++++');
 
   Result.insertMany(results, function(error, docs) {
     if (error) {
@@ -81,10 +78,16 @@ router.put('/result/:result', function(req, res, next) {
 
 // D
 // Delete a Result
-router.delete('/result/:result', function(req, res, next) {
-  let result_id = req.params.result;
-  if (result_id) {
-    Result.remove({ _id: result_id}, (err, post) => {
+router.delete('/result/:student/:classe', function(req, res, next) {
+
+  let student_id = req.params.student;
+  let classe_id = req.params.classe;
+
+  if (student_id && classe_id) {
+    Result.remove({
+      student: student_id, 
+      classe: classe_id, 
+    }, (err, post) => {
       if (err) {
         return res.status(404).json(err); 
       }

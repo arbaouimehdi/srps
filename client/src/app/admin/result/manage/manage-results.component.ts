@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 
 // Models
 import { Result } from '../../../shared/models/result.model';
+import { DeleteResultDialogComponent } from '../delete/delete-result.dialog.component';
 
 @Component({
   selector: 'app-manage-results',
@@ -31,11 +32,24 @@ export class ManageResultsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  /**
+   * Constructor
+   *
+   *
+   * @param route
+   * @param router
+   */
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog
   ) { }
 
+  /**
+   *
+   *
+   *
+   */
   ngOnInit() {
     // Retreive the prefetched Students
     this.route.data.subscribe(
@@ -157,6 +171,29 @@ export class ManageResultsComponent implements OnInit {
     let student_index = students.findIndex(obj => obj._id === id);
 
     return students[student_index]
+  }
+
+  /**
+   * Delete an Item
+   *
+   *
+   * @param id
+   * @param route
+   */
+  deleteItem(student, classe) {
+
+    const dialogRef = this.dialog.open(DeleteResultDialogComponent, {
+      data: {student, classe }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1 ){
+        //this.refreshTable(this.dataSource._data.value, id);
+      }
+    });
+
   }
 
 }
