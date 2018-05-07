@@ -96,12 +96,26 @@ router.delete('/result/:result', function(req, res, next) {
 });
 
 // 
-// Get Selected Student Details
+// Get Selected Result Details
 router.get('/result/:result', function(req, res, next) {
 
   let result_id = req.params.result;
 
-  Student.findOne({ _id: result_id }, function (err, result) {
+  Result.findOne({ _id: result_id }, function (err, result) {
+    return res.send({result});
+  });
+
+})
+
+// 
+// Get the Subjects Result of a Selected Class
+router.get('/results/:student/:classe/subjects', function(req, res, next) {
+
+  let student_id = req.params.student;
+  let class_id = req.params.classe;
+
+  Result.find({ classe: class_id, student: student_id }, function (err, result) {
+    console.log(result);
     return res.send({result});
   });
 
