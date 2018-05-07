@@ -1,3 +1,80 @@
-<p>
-  manage-results works!
-</p>
+<h1 class="heading-1">Manage Students Results</h1>
+
+<mat-card>
+
+  <!-- # Filter and Add Button -->
+  <mat-grid-list class="table-filter" cols="2" rowHeight="90">
+
+    <mat-grid-tile class="table-search">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="table-add">
+      <a mat-raised-button color="primary" routerLink="/admin/add-result">
+        <mat-icon mat-list-icon>add</mat-icon>
+        New Result
+      </a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- # Table -->
+  <div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+      <!-- Student Roll ID -->
+      <ng-container matColumnDef="roll_id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Student Roll ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{getStudent(element.infos.student).roll_id}} </mat-cell>
+      </ng-container>
+
+      <!-- Student Name -->
+      <ng-container matColumnDef="student">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ getStudent(element.infos.student).full_name }}</mat-cell>
+      </ng-container>
+
+      <!-- Class Name -->
+      <ng-container matColumnDef="classe">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Class Name </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ getClass(element.infos.classe) }}</mat-cell>
+      </ng-container>
+
+      <!-- Total Marks -->
+      <ng-container matColumnDef="total_marks">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Total Marks </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <b>{{ element.infos.total_marks }}</b> out of <b>{{ element.infos.size }}</b> </mat-cell>
+      </ng-container>
+
+      <!-- Percentage -->
+      <ng-container matColumnDef="marks_percentage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ marksPercentage(element.infos.size, element.infos.total_marks) | number : fractionSize }}%
+        </mat-cell>
+        <mat-cell *matCellDef="let element">
+
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="_id">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary">
+            Edit
+          </button>
+          <button mat-raised-button color="warn">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+  </div>
+
+</mat-card>

@@ -4,7 +4,7 @@
 
   <form [formGroup]="resultForm">
 
-    <!-- Gender -->
+    <!-- Student -->
     <mat-form-field>
       <mat-select placeholder="Select Student" formControlName="student" required>
         <mat-option *ngFor="let student of students" [value]="student">
@@ -13,7 +13,7 @@
       </mat-select>
     </mat-form-field>
 
-    <!-- Combination -->
+    <!-- Classe -->
     <mat-form-field>
       <mat-select #classID placeholder="Select Class" (change)="getCombinationSubjects($event.value)" formControlName="classe" required>
         <mat-option *ngFor="let classe of classes" [value]="classe">
@@ -21,10 +21,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
-    <!-- <mat-form-field>
-      <input matInput type="text" placeholder="{{ classID.value?._id }}" formControlName="classe" required>
-    </mat-form-field> -->
 
     <!-- # Subjects -->
     <div *ngIf="combination_subjects">

@@ -137,7 +137,12 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
       },
       {
         path: 'manage-results',
-        component: ManageResultsComponent
+        component: ManageResultsComponent,
+        resolve: {
+          result: ResultResolver,
+          classe: ClasseResolver,
+          student: StudentResolver,
+        }
       },
       {
         path: 'profile-password',
