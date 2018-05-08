@@ -52,6 +52,7 @@ import { CombinationResolver } from './combination/combinations-resolver.service
 // Results
 import { AddResultComponent } from './result/add/add-result.component';
 import { ManageResultsComponent } from './result/manage/manage-results.component';
+import { EditResultComponent } from '../admin/result/edit/edit-result.component';
 import { DeleteResultDialogComponent } from './result/delete/delete-result.dialog.component';
 import { ResultsService } from '../shared/services/result.service';
 import { ResultResolver } from './result/results-resolver.service';
@@ -143,6 +144,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
           result: ResultResolver,
           classe: ClasseResolver,
           student: StudentResolver,
+          subject: SubjectResolver,
         }
       },
       {
@@ -198,6 +200,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     EditSubjectComponent,
     EditClassComponent,
     EditStudentComponent,
+    EditResultComponent,
     EditCombinationComponent,
   ],
   entryComponents: [
@@ -206,6 +209,7 @@ const adminRouting: ModuleWithProviders = RouterModule.forChild([
     EditSubjectComponent,
     EditClassComponent,
     EditStudentComponent,
+    EditResultComponent,
     EditCombinationComponent
   ],
   providers: [

@@ -168,11 +168,8 @@ export class ManageStudentComponent implements OnInit {
         let students = this.dataSource._data.value;
         let index = students.findIndex(obj => obj._id === id);
 
-        console.log(students[index]);
-
         let updated_student = this.apiService.get(`/${route}/${id}`).subscribe((data) => {
           students[index] = data.student;
-          console.log(students[index]);
           this.dataSource = new MatTableDataSource<Element>(students);
         });
 

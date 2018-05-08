@@ -46,33 +46,25 @@ router.get('/results', function(req, res, next) {
 
 // U
 // Update the Result
-router.put('/result/:result', function(req, res, next) {
-  let result_id = req.params.result;
-
-  Result.findOne({ _id: result_id }, function (err, result) {
-    if (err) return handleError(err);
-
-    if (typeof req.body.student !== 'undefined') {
-      result.student = req.body.student;
-    }
-
-    if (typeof req.body.classe !== 'undefined') {
-      result.classe = req.body.classe;
-    }
+router.put('/result/:student/:classe/', function(req, res, next) {
+  
+  // Result.find({ classe: class_id, student: student_id }, function (err, results) {
     
-    if (typeof req.body.score !== 'undefined') {
-      result.score = req.body.score;
-    }
+  //   console.log(results);
 
-    result.save(function(err, result) {
-      if (err) {
-        return res.status(404).send(err); 
-      }else {
-        return res.send({result});
-      }
-    })
+  //   for (let i = 0; i < req.body.length; i += 1) {
 
-  });
+  //     // Result.updateOne({
+  //     //   '_id': req.body[i]._id,
+  //     //   'student': req.body[i].student,
+  //     //   'classe': req.body[i].classe,
+  //     //   'subject': req.body[i].subject,
+  //     //   'score': req.body[i].score,
+  //     // })
+
+  //   }
+
+  // });
 
 })
 

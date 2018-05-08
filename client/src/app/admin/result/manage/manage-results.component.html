@@ -53,16 +53,18 @@
         <mat-cell *matCellDef="let element">
           {{ marksPercentage(element.infos.size, element.infos.total_marks) | number : fractionSize }}%
         </mat-cell>
-        <mat-cell *matCellDef="let element">
-
-        </mat-cell>
       </ng-container>
 
       <!-- Actions Column -->
       <ng-container matColumnDef="_id">
         <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-raised-button color="primary">
+          <button mat-raised-button color="primary" (click)="updateItem(
+            element.infos._id,
+            element.infos.student,
+            element.infos.classe,
+            element.subjects
+          )">
             Edit
           </button>
           <button mat-raised-button color="warn" (click)="deleteItem(

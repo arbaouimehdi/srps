@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>{{ student_infos.full_name }} - {{ classeName }}</h3>
+
+<div *ngFor="let subject of subjects; let i = index">
+  <mat-form-field>
+    <input matInput type="number" placeholder="{{getSubject(subject.subject).name}}" [(ngModel)]="subject.score" required>
+    <mat-hint>Enter Marks out of 100</mat-hint>
+  </mat-form-field>
+</div>
+
+<div style="margin-top: 30px">
+  <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+  <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

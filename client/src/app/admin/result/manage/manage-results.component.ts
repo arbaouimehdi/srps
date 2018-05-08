@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 // Models
 import { Result } from '../../../shared/models/result.model';
 import { DeleteResultDialogComponent } from '../delete/delete-result.dialog.component';
+import { EditResultComponent } from '../edit/edit-result.component';
 
 @Component({
   selector: 'app-manage-results',
@@ -20,6 +21,7 @@ export class ManageResultsComponent implements OnInit {
   updatedResults;
   classes;
   students;
+  all_subjects;
   displayedColumns = [
     'student',
     'roll_id',
@@ -57,6 +59,7 @@ export class ManageResultsComponent implements OnInit {
         this.results = data.result.results;
         this.classes = data.classe.classes;
         this.students = data.student.students;
+        this.all_subjects = data.subject.subjects;
       }
     );
 
@@ -170,6 +173,43 @@ export class ManageResultsComponent implements OnInit {
     let student_index = students.findIndex(obj => obj._id === id);
 
     return students[student_index]
+  }
+
+  /**
+   * Update Result
+   *
+   * @param _id
+   * @param student
+   * @param classe
+   * @param subjects
+   */
+  updateItem(_id, student, classe, subjects){
+
+    const route = 'result';
+    const dialogRef = this.dialog.open(EditResultComponent, {
+      data: {
+        _id,
+        student,
+        classe,
+        subjects,
+        student_infos: this.getStudent(student),
+        classe_name: this.getClass(classe),
+        all_subjects: this.all_subjects,
+        route: `${route}`,
+      }
+    });
+
+    //
+    // After Closed Dialog
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result == 1 ){
+        let results = this.dataSource._data.value;
+        let index = results.findIndex(obj => obj.infos._id === _id);
+      }
+
+    });
+
   }
 
   /**
