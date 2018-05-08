@@ -62,7 +62,6 @@ export class ManageResultsComponent implements OnInit {
 
     // Remove Duplicated Keys
     this.updatedResults = this.getGrouppedValues(this.results);
-    console.log(this.updatedResults);
     this.dataSource = new MatTableDataSource<Element>(this.updatedResults);
 
   }
@@ -86,7 +85,7 @@ export class ManageResultsComponent implements OnInit {
     .flatten()
     .map(function(items, index, self) {
       self[index].push({
-        '_id': self[index][0].classe,
+        '_id': self[index][0]._id,
         'classe': self[index][0].classe,
         'student': self[index][0].student,
         'total_marks': _.sumBy(items, 'score'),
@@ -180,19 +179,42 @@ export class ManageResultsComponent implements OnInit {
    * @param id
    * @param route
    */
-  deleteItem(student, classe) {
+  deleteItem(student, classe, _id) {
 
     const dialogRef = this.dialog.open(DeleteResultDialogComponent, {
-      data: {student, classe }
+      data: {student, classe, _id }
     });
 
     //
     // After Closed Dialog
     dialogRef.afterClosed().subscribe(result => {
       if (result == 1 ){
-        //this.refreshTable(this.dataSource._data.value, id);
+        this.refreshTable(this.dataSource._data.value, _id);
       }
     });
+
+  }
+
+    /**
+   * Refresh Table
+   *
+   *
+   * @param students
+   */
+  refreshTable(results, _id) {
+
+    // Get the index of the data to remove
+    let index = results.findIndex(obj => obj.infos._id === _id);
+
+    // Remove the selected data
+    results.splice(index, 1);
+
+    // Update the List with the new data
+    this.dataSource = new MatTableDataSource<Element>(results);
+
+    // Update the Pagniation
+    this.dataSource.paginator = this.paginator;
+
 
   }
 
