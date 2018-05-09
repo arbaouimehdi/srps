@@ -42,4 +42,10 @@ export class ResultsService {
     return this.apiService.delete('/result/' + id);
   }
 
+  // F
+  // Find Student Result
+  find(student, classe) {
+    return this.apiService.get(`/results/${student}/${classe}/all`);
+  }
+
 }

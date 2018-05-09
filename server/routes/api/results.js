@@ -2,6 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Result = mongoose.model('Result');
+var Student = mongoose.model('Student');
 var auth = require('../auth');
 
 // C
@@ -103,7 +104,7 @@ router.get('/result/:result', function(req, res, next) {
 })
 
 // 
-// Get the Subjects Result of a Selected Class
+// Get the Subjects Result of a Selected Class using student_id
 router.get('/results/:student/:classe/subjects', function(req, res, next) {
 
   let student_id = req.params.student;
@@ -113,6 +114,38 @@ router.get('/results/:student/:classe/subjects', function(req, res, next) {
     console.log(result);
     return res.send({result});
   });
+
+})
+
+// 
+// Get the Subjects Result of a Selected Class using roll_id
+router.get('/results/:roll_id/:classe/all', function(req, res, next) {
+
+  let roll_id = req.params.roll_id;
+  let class_id = req.params.classe;
+  let student_id = '';
+
+  Student.findOne({roll_id: roll_id}, function(err, result, next) {
+    if (err) {
+      return res.status(404).json(err); 
+    }
+    else {
+
+      student_id = result._id
+
+      Result.find({ student: student_id , classe: class_id}, function (err, result) {
+
+        if (err) {
+          return res.status(404).json(err); 
+        }
+    
+        else {
+          return res.send({result});
+        }
+      });
+
+    }
+  })
 
 })
 

@@ -1,21 +1,38 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ResultsComponent } from './results.component';
+// Components
+import { HomeResultsComponent } from './home/home-results.component';
+import { DetailResultsComponent } from './detail/detail-results.component';
+
+// Resolvers
+import { ClasseResolver } from '../admin/classe/classes-resolver.service';
+
+// Modules
+import { SharedModule } from '../shared/shared.module';
 
 const resultsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: '',
-    component: ResultsComponent,
+    component: HomeResultsComponent,
+    resolve: {
+      classe: ClasseResolver,
+    }
+  },
+  {
+    path: 'results',
+    component: DetailResultsComponent,
   }
 ]);
 
 @NgModule({
   imports: [
-    resultsRouting
+    resultsRouting,
+    SharedModule,
   ],
   declarations: [
-    ResultsComponent
+    HomeResultsComponent,
+    DetailResultsComponent
   ]
 })
 export class ResultsModule { }

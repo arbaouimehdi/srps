@@ -1,0 +1,32 @@
+<mat-card class="check-result">
+  <mat-card-title>Your School / Coaching Name</mat-card-title>
+  <mat-card-content>
+
+    <form [formGroup]="resultForm">
+
+      <!-- Roll ID -->
+      <mat-form-field>
+        <input matInput placeholder="Enter your Roll ID" formControlName="roll_id" required>
+        <mat-hint>enter your student Roll ID received by email, eg:
+          <b>78TE</b>
+        </mat-hint>
+      </mat-form-field>
+      <!-- Classes -->
+      <mat-form-field>
+        <mat-select placeholder="Select Class" formControlName="classe" required>
+          <mat-option #cs *ngFor="let classe of classes" [value]="classe._id">
+            {{classe.name_text}} - Section({{classe.section}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="findResult()">
+        <mat-icon mat-list-icon>search</mat-icon>
+        Search
+      </button>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>
