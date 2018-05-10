@@ -9,9 +9,6 @@
 // Material
 @import '~@angular/material/theming';
 
-// Pages
-@import './app/auth/auth-theme';
-@import './app/results/results.component';
 
 @include mat-core();
 
