@@ -7,6 +7,8 @@ import { DetailResultsComponent } from './detail/detail-results.component';
 
 // Resolvers
 import { ClasseResolver } from '../admin/classe/classes-resolver.service';
+import { StudentResolver } from '../admin/student/students-resolver.service';
+import { SubjectResolver } from '../admin/subject/subjects-resolver.service';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
@@ -22,6 +24,11 @@ const resultsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'results',
     component: DetailResultsComponent,
+    resolve: {
+      student: StudentResolver,
+      classe: ClasseResolver,
+      subject: SubjectResolver
+    }
   }
 ]);
 

@@ -1,1 +1,77 @@
-{{ result | json }}
+<mat-card *ngIf="result">
+
+  <!-- Title -->
+  <h1 class="heading-1">Result</h1>
+
+  <!-- Student Infos -->
+  <mat-list role="list">
+
+    <mat-list-item role="listitem">
+      <b>Student Name: </b>
+      {{ getStudent(student).full_name }}
+    </mat-list-item>
+
+    <mat-list-item role="listitem">
+      <b>Student Roll ID: </b> {{ roll_id }}
+    </mat-list-item>
+
+    <mat-list-item role="listitem">
+      <b>Student Class:</b> {{ getClasse(classe) }}
+    </mat-list-item>
+
+  </mat-list>
+
+  <div class="table-data">
+    <table class="table table-hover table-bordered">
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Subject</th>
+          <th>Marks</th>
+        </tr>
+      </thead>
+
+      <!-- Content -->
+      <tbody>
+
+        <tr *ngFor="let subject of result; let position = index">
+          <th scope="row">{{ position + 1 }}</th>
+          <td>{{ getSubject(subject.subject).name }}</td>
+          <td>{{ subject.score }}</td>
+        </tr>
+
+        <!-- Total Marks -->
+        <tr>
+          <th scope="row" colspan="2">Total Marks</th>
+          <td>
+            <b>{{ stats.total_marks }}</b> out of
+            <b>{{ stats.size }}</b>
+          </td>
+        </tr>
+
+        <!-- Percentage -->
+        <tr>
+          <th scope="row" colspan="2">Percentage</th>
+          <td>
+            <b>{{ marksPercentage(stats.total_marks, stats.size) }}%</b>
+          </td>
+        </tr>
+
+        <!-- Download -->
+        <tr>
+          <th scope="row" colspan="2">Download Result</th>
+          <td>
+            <b>
+              <a mat-raised-button color="primary" href="#">Download </a>
+            </b>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+</mat-card>
