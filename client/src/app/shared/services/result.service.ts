@@ -9,6 +9,9 @@ import { HttpModule} from "@angular/http";
 
 @Injectable()
 export class ResultsService {
+
+  private data:any = undefined;
+
   constructor (
     private apiService: ApiService
   ) {}
@@ -47,5 +50,14 @@ export class ResultsService {
   find(student, classe) {
     return this.apiService.get(`/results/${student}/${classe}/all`);
   }
+
+  setData(data:any){
+    this.data = data;
+  }
+
+  getData():any{
+    return this.data;
+  }
+
 
 }

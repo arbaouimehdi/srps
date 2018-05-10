@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 // Models
@@ -17,8 +17,6 @@ export class HomeResultsComponent implements OnInit {
 
   classes: Classe;
   resultForm: FormGroup;
-
-  parentMessage = "message from parent"
 
   constructor(
     private resultsServices: ResultsService,
@@ -51,15 +49,13 @@ export class HomeResultsComponent implements OnInit {
     let classe = data.classe
 
     if (roll_id && classe) {
-      this.resultsServices
-        .find(roll_id, classe)
-        .subscribe(
-          result => {
-            console.log(result);
-          }
-        )
-    }
+      let navigationExtras: NavigationExtras = {
+        queryParams: { roll_id, classe }
+      }
 
+      setTimeout(() => this.router.navigate(['results'], navigationExtras) );
+
+    }
 
   }
 
