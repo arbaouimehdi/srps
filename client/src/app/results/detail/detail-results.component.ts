@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
+import { PdfRow } from '../pdf/template/pdf-row';
+import { pdfData } from '../pdf/template/pdf-data';
+
 import * as _ from 'lodash'
 
 // Services
 import { ResultsService } from '../../shared/services/result.service';
-
-// Components
-import { PdfDialogComponent } from '../pdf/dialog/pdf-dialog.component';
 
 @Component({
   selector: 'app-detail-results',
@@ -132,15 +132,6 @@ export class DetailResultsComponent implements OnInit {
    */
   marksPercentage(total_marks, size) {
     return (total_marks / size) * 100
-  }
-
-
-  previewPDF(id) {
-
-    const dialogRef = this.dialog.open(PdfDialogComponent, {
-      data: {route: 'student'}
-    });
-
   }
 
 }
