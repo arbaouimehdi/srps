@@ -1,11 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import * as _ from 'lodash'
 
 // Services
 import { ResultsService } from '../../shared/services/result.service';
+
+// Components
+import { PdfDialogComponent } from '../pdf/dialog/pdf-dialog.component';
 
 @Component({
   selector: 'app-detail-results',
@@ -29,6 +33,7 @@ export class DetailResultsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private resultsServices: ResultsService,
+    public dialog: MatDialog
   ) {}
 
   /**
@@ -52,7 +57,6 @@ export class DetailResultsComponent implements OnInit {
     //
     // Get URL Params
     this.route.queryParams.subscribe(params => {
-      console.log(params);
 
       if (params.roll_id && params.classe) {
 
@@ -60,7 +64,6 @@ export class DetailResultsComponent implements OnInit {
           .find(params.roll_id, params.classe)
           .subscribe(
             result => {
-              console.log(result);
               let results = result.result;
 
               this.result  = results;
@@ -129,6 +132,15 @@ export class DetailResultsComponent implements OnInit {
    */
   marksPercentage(total_marks, size) {
     return (total_marks / size) * 100
+  }
+
+
+  previewPDF(id) {
+
+    const dialogRef = this.dialog.open(PdfDialogComponent, {
+      data: {route: 'student'}
+    });
+
   }
 
 }

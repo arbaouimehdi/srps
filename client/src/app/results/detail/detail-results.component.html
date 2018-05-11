@@ -1,5 +1,4 @@
 <mat-card *ngIf="result">
-
   <!-- Title -->
   <h1 class="heading-1">Result</h1>
 
@@ -63,7 +62,7 @@
           <th scope="row" colspan="2">Download Result</th>
           <td>
             <b>
-              <a mat-raised-button color="primary" href="#">Download </a>
+              <button type="button" mat-raised-button color="primary" (click)="previewPDF('dd')">Preview PDF</button>
             </b>
           </td>
         </tr>

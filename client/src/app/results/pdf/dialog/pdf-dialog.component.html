@@ -1,0 +1,5 @@
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+  <app-pdf-template [data]="data"></app-pdf-template>
+</kendo-pdf-export>
+
+<button type="button" mat-raised-button color="primary" (click)="pdf.saveAs('invoice.pdf')">Download </button>
