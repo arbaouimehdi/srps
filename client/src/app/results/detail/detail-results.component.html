@@ -67,9 +67,7 @@
         <tr>
           <th scope="row" colspan="2">Download Result</th>
           <td>
-            <button type="button"
-              mat-raised-button color="primary"
-              (click)="pdf.saveAs(getFileName(getStudent(student).full_name))">
+            <button type="button" mat-raised-button color="primary" (click)="pdf.saveAs(getFileName(getStudent(student).full_name))">
               Download PDF
             </button>
           </td>
@@ -90,8 +88,7 @@
 </div>
 
 <!-- PDF preview -->
-<!-- <div style="position: absolute; left: -1000px; top: 0;"> -->
-<div>
+<div style="position: absolute; left: -1000px; top: 0;">
   <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
     <app-pdf-template *ngIf="result" [data]="{
       student_name: getStudent(student).full_name,
