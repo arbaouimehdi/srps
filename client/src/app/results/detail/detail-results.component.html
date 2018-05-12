@@ -1,4 +1,6 @@
+<!-- # Results -->
 <mat-card *ngIf="result">
+
   <!-- Title -->
   <h1 class="heading-1">Result</h1>
 
@@ -38,6 +40,7 @@
           <th scope="row">{{ position + 1 }}</th>
           <td>{{ getSubject(subject.subject).name }}</td>
           <td>{{ subject.score }}</td>
+          <span [hidden]="pdf_subjects.push({subject: getSubject(subject.subject).name, score: subject.score})"></span>
         </tr>
 
         <!-- Total Marks -->
@@ -46,6 +49,8 @@
           <td>
             <b>{{ stats.total_marks }}</b> out of
             <b>{{ stats.size }}</b>
+            <span [hidden]="pdf_stats['total_marks'] = stats.total_marks"></span>
+            <span [hidden]="pdf_stats['size'] = stats.size"></span>
           </td>
         </tr>
 
@@ -54,6 +59,7 @@
           <th scope="row" colspan="2">Percentage</th>
           <td>
             <b>{{ marksPercentage(stats.total_marks, stats.size) }}%</b>
+            <span [hidden]="pdf_stats['percentage'] = marksPercentage(stats.total_marks, stats.size)"></span>
           </td>
         </tr>
 
@@ -61,9 +67,11 @@
         <tr>
           <th scope="row" colspan="2">Download Result</th>
           <td>
-            <b>
-              <button type="button" mat-raised-button color="primary" (click)="previewPDF('dd')">Preview PDF</button>
-            </b>
+            <button type="button"
+              mat-raised-button color="primary"
+              (click)="pdf.saveAs(getFileName(getStudent(student).full_name))">
+              Download PDF
+            </button>
           </td>
         </tr>
 
@@ -73,9 +81,25 @@
 
 </mat-card>
 
-<div class="footer-result">
+<!-- # Back To Home -->
+<div class="footer-result" style="display: none">
   <a mat-raised-button color="link" [routerLink]="['/']">
     <mat-icon mat-list-icon>arrow_back</mat-icon>
     Back To Home
   </a>
+</div>
+
+<!-- PDF preview -->
+<!-- <div style="position: absolute; left: -1000px; top: 0;"> -->
+<div>
+  <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+    <app-pdf-template *ngIf="result" [data]="{
+      student_name: getStudent(student).full_name,
+      roll_id: roll_id,
+      classe_name: getClasse(classe),
+      subjects: pdf_subjects,
+      stats: pdf_stats
+    }"></app-pdf-template>
+
+  </kendo-pdf-export>
 </div>

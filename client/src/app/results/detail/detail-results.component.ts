@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-
-import { PdfRow } from '../pdf/template/pdf-row';
-import { pdfData } from '../pdf/template/pdf-data';
 
 import * as _ from 'lodash'
 
@@ -14,7 +12,10 @@ import { ResultsService } from '../../shared/services/result.service';
 @Component({
   selector: 'app-detail-results',
   templateUrl: './detail-results.component.html',
-  styleUrls: ['./detail-results.component.scss']
+  styleUrls: ['./detail-results.component.scss'],
+  providers: [
+    DatePipe
+  ]
 })
 export class DetailResultsComponent implements OnInit {
 
@@ -29,11 +30,20 @@ export class DetailResultsComponent implements OnInit {
   classes;
   subjects;
 
+  pdf_subjects = [];
+  pdf_stats: Object = {
+    'percentage': Number,
+    'size': Number,
+    'total': Number,
+  };
+  today: number = Date.now();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private resultsServices: ResultsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private datePipe: DatePipe
   ) {}
 
   /**
@@ -51,7 +61,6 @@ export class DetailResultsComponent implements OnInit {
         this.classes = data.classe.classes;
       }
     );
-
 
     //
     //
@@ -81,6 +90,7 @@ export class DetailResultsComponent implements OnInit {
       }
 
     });
+
   }
 
   /**
@@ -132,6 +142,21 @@ export class DetailResultsComponent implements OnInit {
    */
   marksPercentage(total_marks, size) {
     return (total_marks / size) * 100
+  }
+
+  /**
+   * Get Student Result File Name
+   *
+   *
+   * @param student_name
+   */
+  getFileName(student_name) {
+
+    let date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    let student = student_name.toLowerCase().replace(' ', '-');
+
+    console.log(`${student}-${date}`);
+    return `${student}-${date}`;
   }
 
 }
