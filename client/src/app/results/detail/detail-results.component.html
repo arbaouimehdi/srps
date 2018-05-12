@@ -7,7 +7,7 @@
   <!-- Student Infos -->
   <mat-list role="list">
 
-    <mat-list-item role="listitem">
+    <mat-list-item *ngIf="getStudent(student)" role="listitem">
       <b>Student Name: </b>
       {{ getStudent(student).full_name }}
     </mat-list-item>
@@ -80,7 +80,7 @@
 </mat-card>
 
 <!-- # Back To Home -->
-<div class="footer-result" style="display: none">
+<div class="footer-result">
   <a mat-raised-button color="link" [routerLink]="['/']">
     <mat-icon mat-list-icon>arrow_back</mat-icon>
     Back To Home

@@ -73,16 +73,21 @@ export class DetailResultsComponent implements OnInit {
           .find(params.roll_id, params.classe)
           .subscribe(
             result => {
+
+              console.log(result);
               let results = result.result;
 
-              this.result  = results;
-              this.student = results[0].student;
-              this.classe  = params.classe;
-              this.roll_id = params.roll_id;
+              if (results.length > 0) {
 
-              this.stats = {
-                total_marks: _.sumBy(results, 'score'),
-                size: _.size(results) * 100
+                this.result  = results;
+                this.student = results.length === 1 ? results.student : results[0].student;
+                this.classe  = params.classe;
+                this.roll_id = params.roll_id;
+
+                this.stats = {
+                  total_marks: _.sumBy(results, 'score'),
+                  size: _.size(results) * 100
+                }
               }
 
             },
@@ -115,10 +120,13 @@ export class DetailResultsComponent implements OnInit {
     let classes = this.classes;
     let classe_index = classes.findIndex(obj => obj._id === classe_id);
 
-    let section = classes[classe_index].section;
-    let name_text = classes[classe_index].name_text;
+    if (classes[classe_index]){
+      let section = classes[classe_index].section;
+      let name_text = classes[classe_index].name_text;
 
-    return `${name_text}(${section})`
+      return `${name_text}(${section})`
+    }
+
   }
 
   /**
