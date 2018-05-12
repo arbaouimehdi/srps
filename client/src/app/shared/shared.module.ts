@@ -27,12 +27,16 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 
+import { ListErrorsComponent } from './list-errors.component';
+
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule
   ],
   declarations: [
+    ShowAuthedDirective,
+    ListErrorsComponent
   ],
   exports: [
     CommonModule,
@@ -57,6 +61,8 @@ import {
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
+    ShowAuthedDirective,
+    ListErrorsComponent
   ]
 })
 export class SharedModule {}

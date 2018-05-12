@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../shared';
+import { Errors } from '../shared/models/errors.model';
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +18,7 @@ export class AuthComponent implements OnInit {
   email            = new FormControl('', [Validators.required, Validators.email]);
   hide             = true;
   authForm: FormGroup;
+  errors: Errors = {errors: {}};
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -83,6 +85,7 @@ export class AuthComponent implements OnInit {
    */
   submitForm() {
     this.isSubmitting = true;
+    this.errors = {errors: {}};
     console.log(this.authForm.value);
 
     const credentials = this.authForm.value;
@@ -91,6 +94,7 @@ export class AuthComponent implements OnInit {
     .subscribe(
       data => this.router.navigateByUrl('/admin/home'),
       err => {
+        this.errors = err;
         this.isSubmitting = false;
       }
     );
