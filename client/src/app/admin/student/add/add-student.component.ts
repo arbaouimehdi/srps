@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 // Models
 import { Student } from '../../../shared/models/student.model';
 import { Gender } from '../../../shared/models/gender.model';
 import { Classe } from '../../../shared/models/classe.model';
+import { Errors } from '../../../shared/models/errors.model';
 
 // Services
 import { StudentsService } from '../../../shared/services/student.service';
@@ -17,11 +18,13 @@ import { StudentsService } from '../../../shared/services/student.service';
 })
 export class AddStudentComponent implements OnInit {
 
-  isSubmitting = false;
   studentForm: FormGroup;
   student: Student;
   genders: Gender;
   classes: Classe;
+
+  isValid: Boolean      = false;
+  errors: Errors = {errors: {}}
 
 
   /**
@@ -37,12 +40,12 @@ export class AddStudentComponent implements OnInit {
     private router: Router,
   ) {
     this.studentForm = this.fb.group({
-      full_name: '',
-      roll_id: '',
-      email: '',
-      gender: '',
-      classe: '',
-      birth_date: '',
+      full_name: ['', Validators.required],
+      roll_id: ['', Validators.required],
+      email: ['', Validators.email],
+      gender: ['', Validators.required],
+      classe: ['', Validators.required],
+      birth_date: ['', Validators.required],
     });
   }
 
@@ -69,16 +72,17 @@ export class AddStudentComponent implements OnInit {
    *
    */
   addItem(){
-    this.isSubmitting = true;
-    console.log(this.studentForm.value);
+
     this.studentsService
       .add(this.studentForm.value)
       .subscribe(
         success => {
+          this.isValid = false;
           this.router.navigateByUrl('admin/manage-students')
         },
         err => {
-          this.isSubmitting = false;
+          this.isValid = true;
+          this.errors = err;
         }
     );
   }

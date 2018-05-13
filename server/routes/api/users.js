@@ -61,8 +61,6 @@ router.post('/users/login', function(req, res, next){
 
   passport.authenticate('local', {session: false}, function(err, user, info){
 
-    console.log(info);
-
     if(err){ return next(err); }
 
     if(user){

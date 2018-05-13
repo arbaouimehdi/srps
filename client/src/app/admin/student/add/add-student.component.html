@@ -2,21 +2,30 @@
 
 <mat-card class="card-form">
 
+  <div *ngIf="isValid" class="alert alert-danger">
+    <ul>
+      <li *ngIf="errors.errmsg">A student with the email <b>"{{ email.value }}"</b> already exist</li>
+    </ul>
+  </div>
+
   <form [formGroup]="studentForm">
 
     <!-- Full Name -->
     <mat-form-field>
-      <input matInput placeholder="Full Name" maxlength="15" formControlName="full_name" required>
+      <input matInput placeholder="Full Name" minlength="6" maxlength="15" formControlName="full_name" required>
+      <mat-error>Full Name must be between 6 and 15 characters</mat-error>
     </mat-form-field>
 
     <!-- Roll ID -->
     <mat-form-field>
-      <input matInput placeholder="Roll ID" maxlength="10" formControlName="roll_id"  required>
+      <input matInput placeholder="Roll ID" minlength="4" maxlength="4" formControlName="roll_id" required>
+      <mat-error>Roll ID must be 4 characters in uppercase</mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field>
-      <input matInput placeholder="Email" formControlName="email" required>
+      <input #email matInput placeholder="Email" formControlName="email" required>
+      <mat-error>Email must be a valid email address (username@domain)</mat-error>
     </mat-form-field>
 
     <!-- Gender -->
@@ -26,6 +35,7 @@
           {{gender.type}}
         </mat-option>
       </mat-select>
+      <mat-error>Gender Field is <b>required</b></mat-error>
     </mat-form-field>
 
     <!-- Class -->
@@ -35,6 +45,7 @@
           {{classe.name_text}} - Section({{classe.section}})
         </mat-option>
       </mat-select>
+      <mat-error>Class Field is <b>required</b></mat-error>
     </mat-form-field>
 
     <!-- Date of Birth -->
@@ -44,9 +55,10 @@
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Date of Birth Field is <b>required</b></mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="addItem()">
+    <button mat-raised-button color="primary" (click)="addItem()" [disabled]="!studentForm.valid">
       <mat-icon mat-list-icon>add</mat-icon>
       Submit
     </button>

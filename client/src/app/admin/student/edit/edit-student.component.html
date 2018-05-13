@@ -1,19 +1,21 @@
 <h3 mat-dialog-title>Edit: {{data.full_name}}</h3>
 
+<!-- Email -->
+<mat-form-field>
+  <input matInput placeholder="Email" [(ngModel)]="data.email" disabled>
+  <mat-hint>Email has to be edited from the database directly</mat-hint>
+</mat-form-field>
+
 <!-- Full Name -->
 <mat-form-field>
-  <input matInput placeholder="Full Name" [(ngModel)]="data.full_name" required>
+  <input matInput placeholder="Full Name" minlength="6" maxlength="15" [(ngModel)]="data.full_name" required>
+  <mat-error>Full Name must be between 6 and 15 characters</mat-error>
 </mat-form-field>
 
 <!-- Roll ID -->
 <mat-form-field>
-  <input matInput #rollID maxlength="4" placeholder="Roll ID" [(ngModel)]="data.roll_id" required>
-  <mat-hint>{{rollID.value?.length || 0}}/3 - Eg- 1,2,4,5 etc</mat-hint>
-</mat-form-field>
-
-<!-- Email -->
-<mat-form-field>
-  <input matInput placeholder="Email" [(ngModel)]="data.email" required>
+  <input matInput #rollID minlength="4" maxlength="4" placeholder="Roll ID" [(ngModel)]="data.roll_id" required>
+  <mat-error>Roll ID must be 4 characters in uppercase</mat-error>
 </mat-form-field>
 
 <!-- Gender -->
@@ -23,6 +25,9 @@
       {{gender.type}}
     </mat-option>
   </mat-select>
+  <mat-error>Gender Field is
+    <b>required</b>
+  </mat-error>
 </mat-form-field>
 
 <!-- Class -->
@@ -32,6 +37,9 @@
       {{classe.name_text}} - Section({{classe.section}})
     </mat-option>
   </mat-select>
+  <mat-error>Class Field is
+    <b>required</b>
+  </mat-error>
 </mat-form-field>
 
 <!-- Date of Birth -->
@@ -41,6 +49,9 @@
     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
   </mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
+  <mat-error>Date of Birth Field is
+    <b>required</b>
+  </mat-error>
 </mat-form-field>
 
 <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
