@@ -1,5 +1,12 @@
+<!-- No result -->
+<mat-card *ngIf="!isValid">
+  <h1 class="heading-1">No Result</h1>
+
+  <app-list-errors [errors]="errors"></app-list-errors>
+</mat-card>
+
 <!-- # Results -->
-<mat-card *ngIf="result">
+<mat-card *ngIf="isValid">
 
   <!-- Title -->
   <h1 class="heading-1">Result</h1>

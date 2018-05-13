@@ -147,6 +147,14 @@ router.get('/results/:roll_id/:classe/all', function(req, res, next) {
         });
       }
 
+      else {
+        return res.status(422).json(
+          {
+            errors: { roll_id: "This Roll ID doesn't exist" }
+          }
+        );
+      }
+
     }
   })
 

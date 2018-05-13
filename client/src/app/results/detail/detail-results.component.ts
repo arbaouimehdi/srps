@@ -9,6 +9,9 @@ import * as _ from 'lodash'
 // Services
 import { ResultsService } from '../../shared/services/result.service';
 
+// Models
+import { Errors } from '../../shared/models/errors.model';
+
 @Component({
   selector: 'app-detail-results',
   templateUrl: './detail-results.component.html',
@@ -37,6 +40,9 @@ export class DetailResultsComponent implements OnInit {
     'total': Number,
   };
   today: number = Date.now();
+
+  isValid: Boolean;
+  errors: Errors = {errors: {}};
 
   constructor(
     private route: ActivatedRoute,
@@ -74,7 +80,7 @@ export class DetailResultsComponent implements OnInit {
           .subscribe(
             result => {
 
-              console.log(result);
+              this.isValid = true;
               let results = result.result;
 
               if (results.length > 0) {
@@ -91,6 +97,10 @@ export class DetailResultsComponent implements OnInit {
               }
 
             },
+            err => {
+              this.errors = err;
+              this.isValid = false;
+            }
           )
       }
 
