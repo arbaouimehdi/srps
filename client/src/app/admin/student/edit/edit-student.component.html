@@ -11,6 +11,11 @@
   <mat-hint>{{rollID.value?.length || 0}}/3 - Eg- 1,2,4,5 etc</mat-hint>
 </mat-form-field>
 
+<!-- Email -->
+<mat-form-field>
+  <input matInput placeholder="Email" [(ngModel)]="data.email" required>
+</mat-form-field>
+
 <!-- Gender -->
 <mat-form-field>
   <mat-select placeholder="Select Class" [(ngModel)]="data.gender" required>
@@ -31,7 +36,7 @@
 
 <!-- Date of Birth -->
 <mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="data.birth_date" >
+  <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="data.birth_date">
   <mat-datepicker-toggle matSuffix [for]="picker">
     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
   </mat-datepicker-toggle>

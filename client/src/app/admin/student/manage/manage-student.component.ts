@@ -154,11 +154,11 @@ export class ManageStudentComponent implements OnInit {
    * @param id
    * @param route
    */
-  updateItem(id, full_name, roll_id, birth_date, gender, classe) {
+  updateItem(id, full_name, roll_id, email, birth_date, gender, classe) {
 
     const route = 'student';
     const dialogRef = this.dialog.open(EditStudentComponent, {
-      data: { route: `${route}`, id, full_name, roll_id, birth_date, gender, classe }
+      data: { route: `${route}`, id, full_name, roll_id, email, birth_date, gender, classe }
     });
 
     //
