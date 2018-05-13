@@ -2,8 +2,9 @@
 
 <div *ngFor="let subject of subjects; let i = index">
   <mat-form-field>
-    <input matInput type="number" placeholder="{{getSubject(subject.subject).name}}" [(ngModel)]="subject.score" required>
-    <mat-hint>Enter Marks out of 100</mat-hint>
+    <input matInput #ss type="number" placeholder="{{getSubject(subject.subject).name}}" [(ngModel)]="subject.score" required>
+    <mat-hint>{{ ss.value }}</mat-hint>
+    <mat-error>This marks has to be between <b>1</b> &amp; <b>100</b></mat-error>
   </mat-form-field>
 </div>
 

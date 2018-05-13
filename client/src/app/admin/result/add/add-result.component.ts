@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, FormArray, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, ValidationErrors, Validators } from '@angular/forms';
 
 // Models
 import { Result } from '../../../shared/models/result.model';
@@ -130,7 +130,10 @@ export class AddResultComponent implements OnInit {
 
       // Add Scores Form Controls
       for (let i = 0; i < this.combination_subjects.length; i++) {
-        this.resultForm.addControl(`score${i}`, new FormControl(''))
+        this.resultForm.addControl(`score${i}`, new FormControl('', [
+          Validators.min(0),
+          Validators.max(100)
+        ]))
         this.resultForm.addControl(`subject${i}`, new FormControl(''));
       }
 

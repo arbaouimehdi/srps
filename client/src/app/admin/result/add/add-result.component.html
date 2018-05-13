@@ -11,6 +11,7 @@
           {{student.full_name}}
         </mat-option>
       </mat-select>
+      <mat-error>Student Field is <b>required</b></mat-error>
     </mat-form-field>
 
     <!-- Classe -->
@@ -20,6 +21,7 @@
           {{ classe.name_text }}({{ classe.section }})
         </mat-option>
       </mat-select>
+      <mat-error>Class Field is <b>required</b></mat-error>
     </mat-form-field>
 
     <!-- # Subjects -->
@@ -29,13 +31,14 @@
           <mat-form-field>
             <input matInput type="number" placeholder="{{ combination_subject.subject.name }}" formControlName="score{{i}}" required>
             <mat-hint>Enter Marks out of 100</mat-hint>
+            <mat-error>This marks has to be between <b>1</b> &amp; <b>100</b></mat-error>
           </mat-form-field>
           <input type="hidden" class="hidden-subjects" [(ngModel)]="combination_subject.subject._id" formControlName="subject{{i}}">
         </div>
       </div>
     </div>
 
-    <button mat-raised-button color="primary" (click)="addItem()">
+    <button mat-raised-button color="primary" (click)="addItem()" [disabled]="!resultForm.valid">
       <mat-icon mat-list-icon>add</mat-icon>
       Submit
     </button>
