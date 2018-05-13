@@ -7,8 +7,6 @@ import { UserService } from '../shared';
 import { Errors } from '../shared/models/errors.model';
 import { CustomValidators, ConfirmValidParentMatcher, errorMessages, regExps } from './custom-validators';
 
-import * as _ from 'lodash'
-
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
