@@ -72,7 +72,7 @@ export class AddResultComponent implements OnInit {
    * Add an Item
    *
    */
-  addItem(results) {
+  addItem() {
 
     let resultForm = this.resultForm.value;
     let resultsLength = Object.keys(resultForm).length;
