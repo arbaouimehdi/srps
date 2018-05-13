@@ -4,6 +4,11 @@ var passport = require('passport');
 var User = mongoose.model('User');
 var auth = require('../auth');
 
+/**
+ * 
+ * 
+ * 
+ */
 router.get('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
@@ -12,6 +17,11 @@ router.get('/user', auth.required, function(req, res, next){
   }).catch(next);
 });
 
+/**
+ * 
+ * 
+ * 
+ */
 router.put('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
@@ -33,7 +43,14 @@ router.put('/user', auth.required, function(req, res, next){
   }).catch(next);
 });
 
+/**
+ * 
+ * 
+ * 
+ * 
+ */
 router.post('/users/login', function(req, res, next){
+
   if(!req.body.user.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
   }
@@ -43,6 +60,9 @@ router.post('/users/login', function(req, res, next){
   }
 
   passport.authenticate('local', {session: false}, function(err, user, info){
+
+    console.log(info);
+
     if(err){ return next(err); }
 
     if(user){
@@ -54,10 +74,16 @@ router.post('/users/login', function(req, res, next){
   })(req, res, next);
 });
 
+/**
+ * 
+ * 
+ * 
+ * 
+ */
 router.post('/users', function(req, res, next){
   var user = new User();
 
-  user.username = req.body.user.username;
+  // user.username = req.body.user.username;
   user.email = req.body.user.email;
   user.setPassword(req.body.user.password);
 

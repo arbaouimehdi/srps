@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../shared';
 import { Errors } from '../shared/models/errors.model';
+import { CustomValidators, ConfirmValidParentMatcher, errorMessages, regExps } from './custom-validators';
+
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-auth',
@@ -13,12 +16,15 @@ import { Errors } from '../shared/models/errors.model';
 })
 export class AuthComponent implements OnInit {
 
-  authType: String = '';
-  isSubmitting     = false;
-  email            = new FormControl('', [Validators.required, Validators.email]);
-  hide             = true;
+  authType: String      = '';
+  isSubmitting          = false;
+  hide                  = true;
+  errors                = errorMessages;
+  isValid: Boolean      = false;
   authForm: FormGroup;
-  errors: Errors = {errors: {}};
+  backEndErrors: Errors = {errors: {}}
+
+  confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -27,11 +33,23 @@ export class AuthComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder
   ) {
-    // use FormBuilder to create a form group
+
     this.authForm = this.fb.group({
-      'email': ['', Validators.required],
-      'password': ['', Validators.required]
-    });
+      emailGroup: this.fb.group({
+        'email': ['', [
+            Validators.required,
+            Validators.email
+        ]]
+      }, { validator: CustomValidators.childrenEqual}),
+      passwordGroup: this.fb.group({
+        'password': ['', [
+            Validators.required,
+            Validators.pattern(regExps.password)
+        ]]
+      })
+    })
+
+
   }
 
   @Input()
@@ -65,18 +83,6 @@ export class AuthComponent implements OnInit {
       }
     });
   }
-
-  /**
-   *
-   *
-   *
-   */
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
-  }
-
   /**
    *
    *
@@ -84,18 +90,27 @@ export class AuthComponent implements OnInit {
    *
    */
   submitForm() {
-    this.isSubmitting = true;
-    this.errors = {errors: {}};
-    console.log(this.authForm.value);
 
-    const credentials = this.authForm.value;
+    this.backEndErrors = {errors: {}};
+
+
+    const credentials = {
+      email: this.authForm.value.emailGroup.email,
+      password: this.authForm.value.passwordGroup.password,
+    }
+
+    console.log(credentials);
+
     this.userService
     .attemptAuth(this.authType, credentials)
     .subscribe(
-      data => this.router.navigateByUrl('/admin/home'),
+      data => {
+        this.isValid = false;
+        this.router.navigateByUrl('/admin/home')
+      },
       err => {
-        this.errors = err;
-        this.isSubmitting = false;
+        this.backEndErrors = err;
+        this.isValid = true;
       }
     );
   }

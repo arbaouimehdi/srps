@@ -3,9 +3,13 @@
 }
 
 :host {
-  display: flex;
-  justify-content: center;
-  margin: 72px 0;
+  display: table;
+  margin: auto;
+  width: 350px;
+}
+
+mat-card {
+  margin-top: 2rem;
 }
 
 .mat-form-field {

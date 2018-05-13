@@ -27,7 +27,7 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 
-import { ListErrorsComponent } from './list-errors.component';
+import { ListErrorsComponent } from './list-errors/list-errors.component';
 
 @NgModule({
   imports: [
