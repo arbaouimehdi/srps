@@ -132,27 +132,33 @@ router.get('/results/:roll_id/:classe/all', function(req, res, next) {
     else {
 
       // Check if result is not empty
+      console.log(result);
       if (result != undefined) {
 
         student_id = result._id
         Result.find({ student: student_id , classe: class_id}, function (err, result) {
-  
+          
           if (err) {
             return res.status(404).json(err); 
           }
-      
+
+          if (result.length == 0) {
+            return res.status(422).json({errors: { 
+              classes: "This Student Has No Classes" }
+            });
+            
+          }
+
           else {
             return res.send({result});
           }
+      
+         
         });
       }
 
       else {
-        return res.status(422).json(
-          {
-            errors: { roll_id: "This Roll ID doesn't exist" }
-          }
-        );
+        return res.status(422).json({errors: { roll_id: "This Roll ID doesn't exist" }});
       }
 
     }
