@@ -131,18 +131,21 @@ router.get('/results/:roll_id/:classe/all', function(req, res, next) {
     }
     else {
 
-      student_id = result._id
+      // Check if result is not empty
+      if (result != undefined) {
 
-      Result.find({ student: student_id , classe: class_id}, function (err, result) {
-
-        if (err) {
-          return res.status(404).json(err); 
-        }
-    
-        else {
-          return res.send({result});
-        }
-      });
+        student_id = result._id
+        Result.find({ student: student_id , classe: class_id}, function (err, result) {
+  
+          if (err) {
+            return res.status(404).json(err); 
+          }
+      
+          else {
+            return res.send({result});
+          }
+        });
+      }
 
     }
   })
