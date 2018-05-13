@@ -4,11 +4,13 @@
 
   <form [formGroup]="subjectForm">
     <mat-form-field>
-      <input matInput placeholder="Subject Name" maxlength="15" formControlName="name" required>
+      <input matInput placeholder="Subject Name" minlength="6" maxlength="20" formControlName="name" required>
+      <mat-error>Password must be between 6 and 20 characters</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Subject Code" formControlName="code" maxlength="15" required>
+      <input matInput placeholder="Subject Code" minlength="4" maxlength="5" formControlName="code" required>
+      <mat-error>Password must be between 3 and 5 characters</mat-error>
     </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="addItem()">

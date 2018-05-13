@@ -1,12 +1,16 @@
 <h3 mat-dialog-title>Edit: {{data.name}}</h3>
 
 <mat-form-field>
-  <input matInput placeholder="Subject Name" [(ngModel)]="data.name" required>
+  <input matInput placeholder="Subject Name" minlength="6" maxlength="20" [(ngModel)]="data.name" required>
+  <mat-error>Password must be between 6 and 20 characters</mat-error>
 </mat-form-field>
 
 <mat-form-field>
-  <input matInput placeholder="Subject Code" [(ngModel)]="data.code" required>
+  <input matInput placeholder="Subject Code" minlength="3" maxlength="5" [(ngModel)]="data.code" required>
+  <mat-error>Password must be between 3 and 5 characters</mat-error>
 </mat-form-field>
 
-<button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
-<button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+<div class="footer-dialog">
+  <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+  <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>
