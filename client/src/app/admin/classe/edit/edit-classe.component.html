@@ -1,16 +1,22 @@
 <h3 mat-dialog-title>Edit: {{data.name_text}}</h3>
 
 <mat-form-field>
-  <input matInput placeholder="Name" [(ngModel)]="data.name_text" required>
+  <input matInput placeholder="Name" minlength="3" maxlength="15" [(ngModel)]="data.name_text" required>
+  <mat-error>Text Name has to be between 3 &amp; 15 characters</mat-error>
 </mat-form-field>
 
 <mat-form-field>
   <input matInput placeholder="Name Numeric" [(ngModel)]="data.name_numeric" required>
+  <mat-error>Numerical Name has to be between 1 &amp; 10</mat-error>
 </mat-form-field>
 
 <mat-form-field>
-  <input matInput placeholder="Section" [(ngModel)]="data.section" required>
+  <input matInput placeholder="Section" maxlength="1" [(ngModel)]="data.section" required>
+  <mat-error>Section has to be only
+    <b>1</b> character</mat-error>
 </mat-form-field>
 
-<button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
-<button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+<div class="footer-dialog">
+  <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+  <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

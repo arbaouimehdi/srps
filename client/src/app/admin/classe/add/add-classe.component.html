@@ -3,22 +3,24 @@
 
   <form [formGroup]="classForm">
     <mat-form-field>
-      <input matInput placeholder="Text Name" maxlength="15" formControlName="name_text" required>
-      <mat-hint>Eg- Third, Fouth,Sixth etc</mat-hint>
+      <input matInput placeholder="Text Name" minlength="3" maxlength="15" formControlName="name_text" required>
+      <mat-hint>Eg: Third, Fouth, Sixth etc</mat-hint>
+      <mat-error>Text Name has to be between 3 &amp; 15 characters</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput #className maxlength="3" placeholder="Numerical Name" formControlName="name_numeric" required>
-      <mat-hint>{{className.value?.length || 0}}/3 - Eg- 1,2,4,5 etc</mat-hint>
+      <input matInput type="number" placeholder="Numerical Name" formControlName="name_numeric" required>
+      <mat-hint>Eg: 1, 2, 4, 5 etc</mat-hint>
+      <mat-error>Numerical Name has to be between 1 &amp; 10</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput #section maxlength="1" placeholder="Section" formControlName="section"  required>
-      <mat-hint>{{section.value?.length || 0}}/1 - Eg- A,B,C etc</mat-hint>
+      <input matInput #section maxlength="1" placeholder="Section" formControlName="section" required>
+      <mat-hint>Eg: A, B, C etc</mat-hint>
+      <mat-error>Section has to be only <b>1</b> character</mat-error>
     </mat-form-field>
 
-
-    <button mat-raised-button color="primary" (click)="addItem()">
+    <button mat-raised-button color="primary" (click)="addItem()" [disabled]="!classForm.valid">
       <mat-icon mat-list-icon>add</mat-icon>
       Submit
     </button>

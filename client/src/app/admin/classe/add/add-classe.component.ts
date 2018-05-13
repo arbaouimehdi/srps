@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 // Models
 import { Classe } from '../../../shared/models/classe.model';
@@ -35,7 +35,10 @@ export class AddClassComponent implements OnInit {
   ) {
     this.classForm = this.fb.group({
       name_text: '',
-      name_numeric: '',
+      name_numeric: ['', [
+        Validators.min(0),
+        Validators.max(10)
+      ]],
       section: ''
     });
   }
