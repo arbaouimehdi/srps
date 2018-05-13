@@ -8,6 +8,7 @@ import { EditClassComponent } from '../edit/edit-classe.component';
 
 // Models
 import { Classe } from '../../../shared/models/classe.model';
+import { Errors } from '../../../shared/models/errors.model';
 
 // Services
 import { ClassesService } from '../../../shared/services/classe.service';

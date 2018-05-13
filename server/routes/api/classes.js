@@ -2,6 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Classe = mongoose.model('Classe');
 var User = mongoose.model('User');
+var Combination = mongoose.model('Combination');
 var auth = require('../auth');
 
 // C
@@ -77,14 +78,28 @@ router.put('/classe/:classe', function(req, res, next) {
 router.delete('/classe/:classe', function(req, res, next) {
   let classe_id = req.params.classe;
   if (classe_id) {
-    Classe.remove({ _id: classe_id}, (err, post) => {
-      if (err) {
-        return res.status(404).json(err); 
+
+    // Find if the selected Class is included in a combination(s)
+    Combination.find({ classe: classe_id }, function (err, classe) {
+      console.log(classe);
+
+      if (classe.length > 0) {
+        return res.status(422).json({errors: {classe: "you can't remove this classe, it has 'subjects'"}}); 
       }
+
       else {
-        return res.sendStatus(204);
+        Classe.remove({ _id: classe_id}, (err, post) => {
+          if (err) {
+            return res.status(404).json(err); 
+          }
+          else {
+            return res.sendStatus(204);
+          }
+        })
       }
-    })
+
+    });
+
   }
 });
 
