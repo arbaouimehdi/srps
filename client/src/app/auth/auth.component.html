@@ -18,8 +18,8 @@
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
       </p>
-      <p *ngIf="errorMessage" class="loginError">
-        {{ errorMessage }}
+      <p *ngIf="errors" class="loginError">
+        {{ errors | json }}
       </p>
       <p class="loginButtons">
         <button type="submit" mat-raised-button color="primary">Login</button>
