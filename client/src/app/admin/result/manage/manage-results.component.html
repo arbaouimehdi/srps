@@ -24,21 +24,21 @@
     <mat-table #table [dataSource]="dataSource" matSort>
 
       <!-- Student Roll ID -->
-      <ng-container matColumnDef="roll_id">
+      <ng-container matColumnDef="student_roll_id">
         <mat-header-cell *matHeaderCellDef> Student Roll ID </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{getStudent(element.student).roll_id}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.student_roll_id}} </mat-cell>
       </ng-container>
 
       <!-- Student Name -->
-      <ng-container matColumnDef="student">
+      <ng-container matColumnDef="student_name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ getStudent(element.student).full_name }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.student_name }}</mat-cell>
       </ng-container>
 
       <!-- Class Name -->
-      <ng-container matColumnDef="classe">
+      <ng-container matColumnDef="class_name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Class Name </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ getClass(element.classe) }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.class_name }}</mat-cell>
       </ng-container>
 
       <!-- Total Marks -->

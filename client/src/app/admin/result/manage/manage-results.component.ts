@@ -26,9 +26,9 @@ export class ManageResultsComponent implements OnInit {
   students;
   all_subjects;
   displayedColumns = [
-    'student',
-    'roll_id',
-    'classe',
+    'student_roll_id',
+    'student_name',
+    'class_name',
     'total_marks',
     'marks_percentage',
     '_id'
@@ -69,6 +69,7 @@ export class ManageResultsComponent implements OnInit {
 
     // Remove Duplicated Keys
     this.updatedResults = this.getGrouppedValues(this.results);
+    console.log(this.updatedResults);
     this.dataSource = new MatTableDataSource<Element>(this.updatedResults);
   }
 
@@ -80,40 +81,69 @@ export class ManageResultsComponent implements OnInit {
    */
   getGrouppedValues(results) {
 
+    /**
+     *
+     *
+     */
+    let students = this.students;
+    let studentInfos = function(id) {
+      let student_index = students.findIndex(obj => obj._id === id);
+      return students[student_index]
+    }
+
+    /**
+     *
+     *
+     */
+    let classes = this.classes;
+    let className = function(id) {
+      let classe_index = classes.findIndex(obj => obj._id === id);
+      let section = classes[classe_index].section;
+      let name_text = classes[classe_index].name_text;
+      return `${name_text}(${section})`
+    }
+
+    /**
+     *
+     *
+     */
     let data = _(results)
-    .groupBy('student')
-    .map(function(items, index, self) {
-      return _(items).groupBy('classe').values().value()
-    })
-    .map(function(items, index, self) {
-      return items;
-    })
-    .flatten()
-    .map(function(items, index, self) {
-      self[index].push({
-        '_id': self[index][0]._id,
-        'classe': self[index][0].classe,
-        'student': self[index][0].student,
-        'total_marks': _.sumBy(items, 'score'),
-        'size': _.size(items) * 100,
-        'marks_percentage': _.sumBy(items, 'score') / _.size(items)
+      .groupBy('student')
+      .map(function(items, index, self) {
+        return _(items).groupBy('classe').values().value()
       })
-      return items;
-    })
-    .map(function(items, index, self) {
-      let last_index = _.findLastIndex(self[index]);
-      let results = {
-        'infos': [],
-        'subjects': []
-      };
+      .map(function(items, index, self) {
+        return items;
+      })
+      .flatten()
+      .map(function(items, index, self) {
+        self[index].push({
+          '_id': self[index][0]._id,
+          'classe': self[index][0].classe,
+          'class_name': className(self[index][0].classe),
+          'student': self[index][0].student,
+          'student_name': studentInfos(self[index][0].student).full_name,
+          'student_roll_id': studentInfos(self[index][0].student).roll_id,
+          'total_marks': _.sumBy(items, 'score'),
+          'size': _.size(items) * 100,
+          'marks_percentage': _.sumBy(items, 'score') / _.size(items)
+        })
+        return items;
+      })
+      .map(function(items, index, self) {
+        let last_index = _.findLastIndex(self[index]);
+        let results = {
+          'infos': [],
+          'subjects': []
+        };
 
-      results = self[index][last_index];items
-      items.splice(-1,1)
-      results.subjects = items;
+        results = self[index][last_index];items
+        items.splice(-1,1)
+        results.subjects = items;
 
-      return results
-    })
-    .value()
+        return results
+      })
+      .value()
 
     return data;
   }
