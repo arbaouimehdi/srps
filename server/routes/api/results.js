@@ -4,6 +4,8 @@ var User = mongoose.model('User');
 var Result = mongoose.model('Result');
 var Student = mongoose.model('Student');
 var auth = require('../auth');
+var ObjectId = require('mongodb').ObjectID;
+var bulk = Result.collection.initializeOrderedBulkOp();
 
 // C
 // Create a New Result
@@ -48,24 +50,33 @@ router.get('/results', function(req, res, next) {
 // U
 // Update the Result
 router.put('/result/:student/:classe/', function(req, res, next) {
-  
-  // Result.find({ classe: class_id, student: student_id }, function (err, results) {
-    
-  //   console.log(results);
 
-  //   for (let i = 0; i < req.body.length; i += 1) {
 
-  //     // Result.updateOne({
-  //     //   '_id': req.body[i]._id,
-  //     //   'student': req.body[i].student,
-  //     //   'classe': req.body[i].classe,
-  //     //   'subject': req.body[i].subject,
-  //     //   'score': req.body[i].score,
-  //     // })
-
-  //   }
-
+  // Result.findOne({_id: ObjectId('5af0bec6284ce24c754de272')}, function(err, result) {
+  //   result.score = 20
+  //   console.log(result);
+  //   result.save(function(err, result) {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(422).json(err);
+  //     }else {
+  //       return res.send({result});
+  //     }
+  //   })
   // });
+
+  // Find Selected Student Class Subjects
+  Result.find({ classe: req.params.classe, student: req.params.student }, function (err, results) {
+
+    if (err) return res.status(404).json(err); 
+
+    // 0
+    for (let index = 0; index < results.length; index++) {
+      results[index].set({ score: req.body[index].score });
+      results[index].save();
+    }
+
+  })
 
 })
 

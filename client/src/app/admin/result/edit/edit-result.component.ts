@@ -1,6 +1,6 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 // Models
@@ -19,6 +19,7 @@ export class EditResultComponent {
   student;
   classe;
   subjects;
+  resultForm: FormGroup;
 
   student_infos;
   classeName;
@@ -27,8 +28,13 @@ export class EditResultComponent {
   constructor(
     public dialogRef: MatDialogRef<EditResultComponent>,
     public apiService: ApiService,
+    private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+    let ob = this.formValidator(this.data.subjects)
+    console.log(ob);
+    this.resultForm = this.fb.group(ob);
+  }
 
 
   ngOnInit() {
@@ -47,6 +53,19 @@ export class EditResultComponent {
 
   stopEdit(): void {
     this.apiService.put(`/result/${this.student}/${this.classe}`, this.data.subjects).subscribe();
+  }
+
+  /**
+   *
+   *
+   */
+  formValidator(data) {
+    let formControls = {}
+    for (let i = 0; i < data.length; i++) {
+      formControls[`subject${i}`] = ['', [Validators.min(0),Validators.max(100)]]
+    }
+
+    return formControls;
   }
 
   /**

@@ -23,9 +23,9 @@ let ResultSchema = new mongoose.Schema({
   },
 }, {timestamps: true});
 
-ResultSchema.index({ student: 1, classe: 1 }, { unique: true });
+//ResultSchema.index({ student: 1, classe: 1 }, { unique: true });
 
-ResultSchema.plugin(uniqueValidator);
+//ResultSchema.plugin(uniqueValidator);
 
 ResultSchema.methods.toJSONFor = function() {
   return {

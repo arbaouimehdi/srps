@@ -9,6 +9,9 @@ import { Result } from '../../../shared/models/result.model';
 import { DeleteResultDialogComponent } from '../delete/delete-result.dialog.component';
 import { EditResultComponent } from '../edit/edit-result.component';
 
+// Services
+import { ApiService } from '../../../shared';
+
 @Component({
   selector: 'app-manage-results',
   templateUrl: './manage-results.component.html',
@@ -44,7 +47,8 @@ export class ManageResultsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private apiService: ApiService,
   ) { }
 
   /**
@@ -65,7 +69,6 @@ export class ManageResultsComponent implements OnInit {
 
     // Remove Duplicated Keys
     this.updatedResults = this.getGrouppedValues(this.results);
-    console.log(this.updatedResults);
     this.dataSource = new MatTableDataSource<Element>(this.updatedResults);
   }
 
@@ -206,7 +209,13 @@ export class ManageResultsComponent implements OnInit {
 
       if (result == 1 ){
         let results = this.dataSource._data.value;
-        let index = results.findIndex(obj => obj.infos._id === _id);
+        let index = results.findIndex(obj => obj._id === _id);
+
+        // this.apiService.get(`/result/${_id}`).subscribe((data) => {
+        //   results[index] = data.result;
+        //   this.dataSource = new MatTableDataSource<Element>(results);
+        // });
+
       }
 
     });
@@ -245,7 +254,7 @@ export class ManageResultsComponent implements OnInit {
   refreshTable(results, _id) {
 
     // Get the index of the data to remove
-    let index = results.findIndex(obj => obj.infos._id === _id);
+    let index = results.findIndex(obj => obj._id === _id);
 
     // Remove the selected data
     results.splice(index, 1);
