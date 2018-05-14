@@ -65,8 +65,8 @@ export class ManageResultsComponent implements OnInit {
 
     // Remove Duplicated Keys
     this.updatedResults = this.getGrouppedValues(this.results);
+    console.log(this.updatedResults);
     this.dataSource = new MatTableDataSource<Element>(this.updatedResults);
-
   }
 
   /**
@@ -93,6 +93,7 @@ export class ManageResultsComponent implements OnInit {
         'student': self[index][0].student,
         'total_marks': _.sumBy(items, 'score'),
         'size': _.size(items) * 100,
+        'marks_percentage': _.sumBy(items, 'score') / _.size(items)
       })
       return items;
     })
@@ -103,7 +104,7 @@ export class ManageResultsComponent implements OnInit {
         'subjects': []
       };
 
-      results.infos = self[index][last_index];items
+      results = self[index][last_index];items
       items.splice(-1,1)
       results.subjects = items;
 

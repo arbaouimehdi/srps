@@ -25,33 +25,33 @@
 
       <!-- Student Roll ID -->
       <ng-container matColumnDef="roll_id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Student Roll ID </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{getStudent(element.infos.student).roll_id}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Student Roll ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{getStudent(element.student).roll_id}} </mat-cell>
       </ng-container>
 
       <!-- Student Name -->
       <ng-container matColumnDef="student">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ getStudent(element.infos.student).full_name }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ getStudent(element.student).full_name }}</mat-cell>
       </ng-container>
 
       <!-- Class Name -->
       <ng-container matColumnDef="classe">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Class Name </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ getClass(element.infos.classe) }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ getClass(element.classe) }}</mat-cell>
       </ng-container>
 
       <!-- Total Marks -->
       <ng-container matColumnDef="total_marks">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Total Marks </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <b>{{ element.infos.total_marks }}</b> out of <b>{{ element.infos.size }}</b> </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Total Marks </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <b>{{ element.total_marks }}</b> out of <b>{{ element.size }}</b> </mat-cell>
       </ng-container>
 
       <!-- Percentage -->
       <ng-container matColumnDef="marks_percentage">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          {{ marksPercentage(element.infos.size, element.infos.total_marks) | number : fractionSize }}%
+          {{ element.marks_percentage | number : fractionSize }}%
         </mat-cell>
       </ng-container>
 
@@ -60,17 +60,17 @@
         <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-raised-button color="primary" (click)="updateItem(
-            element.infos._id,
-            element.infos.student,
-            element.infos.classe,
+            element._id,
+            element.student,
+            element.classe,
             element.subjects
           )">
             Edit
           </button>
           <button mat-raised-button color="warn" (click)="deleteItem(
-            element.infos.student,
-            element.infos.classe,
-            element.infos._id)">Delete</button>
+            element.student,
+            element.classe,
+            element._id)">Delete</button>
         </mat-cell>
       </ng-container>
 

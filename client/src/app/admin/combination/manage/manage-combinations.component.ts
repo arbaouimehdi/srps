@@ -31,7 +31,7 @@ export class ManageCombinationsComponent implements OnInit {
   dataSource;
 
   displayedColumns = [
-    'class',
+    'classe',
     'subject',
     'status',
     'createdAt',
