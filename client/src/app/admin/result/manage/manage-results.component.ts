@@ -181,35 +181,6 @@ export class ManageResultsComponent implements OnInit {
   }
 
   /**
-   * Get Gender Type
-   *
-   *
-   * @param id
-   */
-  getClass(id) {
-    let classes = this.classes;
-    let classe_index = classes.findIndex(obj => obj._id === id);
-
-    let section = classes[classe_index].section;
-    let name_text = classes[classe_index].name_text;
-
-    return `${name_text}(${section})`
-  }
-
-  /**
-   * Get Gender Type
-   *
-   *
-   * @param id
-   */
-  getStudent(id) {
-    let students = this.students;
-    let student_index = students.findIndex(obj => obj._id === id);
-
-    return students[student_index]
-  }
-
-  /**
    * Update Result
    *
    * @param _id
