@@ -32,7 +32,6 @@ export class EditResultComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     let ob = this.formValidator(this.data.subjects)
-    console.log(ob);
     this.resultForm = this.fb.group(ob);
   }
 

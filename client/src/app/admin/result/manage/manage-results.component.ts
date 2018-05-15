@@ -68,8 +68,7 @@ export class ManageResultsComponent implements OnInit {
     );
 
     // Remove Duplicated Keys
-    this.updatedResults = this.getGrouppedValues(this.results);
-    console.log(this.updatedResults);
+    this.updatedResults = this.getGrouppedValues(this.results, 'multilevel');
     this.dataSource = new MatTableDataSource<Element>(this.updatedResults);
   }
 
@@ -79,14 +78,14 @@ export class ManageResultsComponent implements OnInit {
    *
    * @param results
    */
-  getGrouppedValues(results) {
+  getGrouppedValues(results, level) {
 
     /**
      *
      *
      */
     let students = this.students;
-    let studentInfos = function(id) {
+    let studentInfos = function (id) {
       let student_index = students.findIndex(obj => obj._id === id);
       return students[student_index]
     }
@@ -96,7 +95,7 @@ export class ManageResultsComponent implements OnInit {
      *
      */
     let classes = this.classes;
-    let className = function(id) {
+    let className = function (id) {
       let classe_index = classes.findIndex(obj => obj._id === id);
       let section = classes[classe_index].section;
       let name_text = classes[classe_index].name_text;
@@ -105,47 +104,66 @@ export class ManageResultsComponent implements OnInit {
 
     /**
      *
+     * Multi Level
      *
      */
-    let data = _(results)
-      .groupBy('student')
-      .map(function(items, index, self) {
-        return _(items).groupBy('classe').values().value()
-      })
-      .map(function(items, index, self) {
-        return items;
-      })
-      .flatten()
-      .map(function(items, index, self) {
-        self[index].push({
-          '_id': self[index][0]._id,
-          'classe': self[index][0].classe,
-          'class_name': className(self[index][0].classe),
-          'student': self[index][0].student,
-          'student_name': studentInfos(self[index][0].student).full_name,
-          'student_roll_id': studentInfos(self[index][0].student).roll_id,
-          'total_marks': _.sumBy(items, 'score'),
-          'size': _.size(items) * 100,
-          'marks_percentage': _.sumBy(items, 'score') / _.size(items)
+    if (level == 'onelevel') {
+
+      let subjects = results.subjects;
+      results.total_marks = _.sumBy(subjects, 'score')
+      results.marks_percentage = _.sumBy(subjects, 'score') / _.size(subjects)
+
+      return results;
+    }
+
+    /**
+     *
+     * Multi Level
+     *
+     */
+    if (level == 'multilevel') {
+
+      let data = _(results)
+        .groupBy('student')
+        .map(function (items, index, self) {
+          return _(items).groupBy('classe').values().value()
         })
-        return items;
-      })
-      .map(function(items, index, self) {
-        let last_index = _.findLastIndex(self[index]);
-        let results = {
-          'infos': [],
-          'subjects': []
-        };
+        .map(function (items, index, self) {
+          return items;
+        })
+        .flatten()
+        .map(function (items, index, self) {
+          self[index].push({
+            '_id': self[index][0]._id,
+            'classe': self[index][0].classe,
+            'class_name': className(self[index][0].classe),
+            'student': self[index][0].student,
+            'student_name': studentInfos(self[index][0].student).full_name,
+            'student_roll_id': studentInfos(self[index][0].student).roll_id,
+            'total_marks': _.sumBy(items, 'score'),
+            'size': _.size(items) * 100,
+            'marks_percentage': _.sumBy(items, 'score') / _.size(items)
+          })
+          return items;
+        })
+        .map(function (items, index, self) {
+          let last_index = _.findLastIndex(self[index]);
+          let results = {
+            'infos': [],
+            'subjects': []
+          };
 
-        results = self[index][last_index];items
-        items.splice(-1,1)
-        results.subjects = items;
+          results = self[index][last_index]; items
+          items.splice(-1, 1)
+          results.subjects = items;
 
-        return results
-      })
-      .value()
+          return results
+        })
+        .value()
 
-    return data;
+      return data;
+    }
+
   }
 
   /**
@@ -181,6 +199,35 @@ export class ManageResultsComponent implements OnInit {
   }
 
   /**
+   * Get Gender Type
+   *
+   *
+   * @param id
+   */
+  getClass(id) {
+    let classes = this.classes;
+    let classe_index = classes.findIndex(obj => obj._id === id);
+
+    let section = classes[classe_index].section;
+    let name_text = classes[classe_index].name_text;
+
+    return `${name_text}(${section})`
+  }
+
+  /**
+   * Get Gender Type
+   *
+   *
+   * @param id
+   */
+  getStudent(id) {
+    let students = this.students;
+    let student_index = students.findIndex(obj => obj._id === id);
+
+    return students[student_index]
+  }
+
+  /**
    * Update Result
    *
    * @param _id
@@ -188,7 +235,7 @@ export class ManageResultsComponent implements OnInit {
    * @param classe
    * @param subjects
    */
-  updateItem(_id, student, classe, subjects){
+  updateItem(_id, student, classe, subjects) {
 
     const route = 'result';
     const dialogRef = this.dialog.open(EditResultComponent, {
@@ -208,14 +255,11 @@ export class ManageResultsComponent implements OnInit {
     // After Closed Dialog
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result == 1 ){
+      if (result == 1) {
         let results = this.dataSource._data.value;
         let index = results.findIndex(obj => obj._id === _id);
 
-        // this.apiService.get(`/result/${_id}`).subscribe((data) => {
-        //   results[index] = data.result;
-        //   this.dataSource = new MatTableDataSource<Element>(results);
-        // });
+        this.getGrouppedValues(results[index], 'onelevel')
 
       }
 
@@ -233,25 +277,25 @@ export class ManageResultsComponent implements OnInit {
   deleteItem(student, classe, _id) {
 
     const dialogRef = this.dialog.open(DeleteResultDialogComponent, {
-      data: {student, classe, _id }
+      data: { student, classe, _id }
     });
 
     //
     // After Closed Dialog
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 1 ){
+      if (result == 1) {
         this.refreshTable(this.dataSource._data.value, _id);
       }
     });
 
   }
 
-    /**
-   * Refresh Table
-   *
-   *
-   * @param students
-   */
+  /**
+ * Refresh Table
+ *
+ *
+ * @param students
+ */
   refreshTable(results, _id) {
 
     // Get the index of the data to remove
